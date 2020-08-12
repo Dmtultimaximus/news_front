@@ -1,0 +1,24 @@
+<div class="reddit-body">
+  <div class="container">
+    <div class="row all-news" *ngFor="let news of news$">
+      <!-- Section to Display Votes-->
+      <div class="col-md-12">
+        <div>
+          {{news.newsname}}
+        </div>
+        <div>
+          {{news.description}}
+        </div>
+        <div>
+          {{news.tags}}
+        </div>
+        <div>
+          {{news.text}}
+        </div>
+        <div>
+          {{news.urlImg}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
