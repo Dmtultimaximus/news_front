@@ -31,13 +31,6 @@ export class LoginComponent implements OnInit {
       username: new FormControl('', Validators.required ),
       password: new FormControl('', Validators.required )
     });
-    this.activatedRoute.queryParams
-      .subscribe(params => {
-        if (params.registered !== undefined && params.registered === 'true') {
-          this.registerSuccessMessage = 'Please Check your inbox for activation email '
-            + 'activate your account before you Login!';
-        }
-      });
   }
   // tslint:disable-next-line:typedef
   login() {
@@ -47,7 +40,7 @@ export class LoginComponent implements OnInit {
       if (data) {
         console.log(data);
         this.isError = false;
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/main');
         this.toastr.success('Login successful');
       } else {
         this.isError = true;

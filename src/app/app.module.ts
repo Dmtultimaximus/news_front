@@ -13,6 +13,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {AuthInterceptorService} from './service/auth-interceptor.service';
 import {AllNewsComponent} from './all-news/all-news.component';
+import { AddNewsComponent } from './add-news/add-news.component';
+import { AboutNewsComponent } from './about-news/about-news.component';
+import { UpdateNewsComponent } from './update-news/update-news.component';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import {AllNewsComponent} from './all-news/all-news.component';
     SignupComponent,
     SignupComponent,
     LoginComponent,
-    AllNewsComponent
+    AllNewsComponent,
+    AddNewsComponent,
+    AboutNewsComponent,
+    UpdateNewsComponent
   ],
   imports: [
     BrowserModule,

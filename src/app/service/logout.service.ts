@@ -9,7 +9,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class LogoutService {
 
-  constructor(private httpClient: HttpClient,
+  constructor(private httpClient: HttpClient
               ) { }
   logout(logoutRequest: LogoutRequest): Observable<object> {
     return this.httpClient.post<SignupResponse>(

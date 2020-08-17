@@ -3,21 +3,24 @@
     <div class="row all-news" *ngFor="let news of news$">
       <!-- Section to Display Votes-->
       <div class="col-md-12">
-        <div>
-          {{news.newsname}}
+        <div class="news-name">
+          <h2>newsname: {{news.newsname}}</h2>
         </div>
-        <div>
-          {{news.description}}
+        <div class="news-description">
+          <h3>description: {{news.description}}</h3>
         </div>
-        <div>
-          {{news.tags}}
+        <div class="news-tags">
+          <p>tags: {{news.tags}}</p>
         </div>
-        <div>
-          {{news.text}}
+        <div class="news-text">
+          <p>text: {{news.text}}</p>
         </div>
-        <div>
-          {{news.urlImg}}
+        <div class="url-image">
+          <div>urlImg: {{news.urlImg}}</div>
         </div>
+      </div>
+      <div>
+        <button class="btn btn-primary" (click)="about(news)">about</button>
       </div>
     </div>
   </div>

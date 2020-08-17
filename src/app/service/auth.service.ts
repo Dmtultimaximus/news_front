@@ -7,7 +7,6 @@ import {LoginResponse} from '../auth/login/login-response';
 import {map} from 'rxjs/operators';
 import {LocalStorageService} from 'ngx-webstorage';
 import {SignupResponse} from '../auth/signup/signup-response';
-import {LogoutRequest} from '../auth/login/logout-request';
 
 @Injectable({
   providedIn: 'root'
@@ -30,18 +29,10 @@ export class AuthService {
     console.log(loginRequestPayload);
     return this.httpClient.post<LoginResponse>('http://localhost:8080/api/auth/login', loginRequestPayload)
       .pipe(map(data => {
-        console.log(data);
         this.localStorage.store('authenticationToken', data.authenticationToken);
         this.localStorage.store('username', data.username);
+        this.localStorage.store('userId', data.userId);
         return true;
       }));
   }
-
-  // logout(logoutRequest: LogoutRequest): Observable<object> {
-  //   return this.httpClient.post<SignupResponse>(
-  //     'http://localhost:8080/api/auth/logout',
-  //     logoutRequest
-  //   );
-  // }
-
 }

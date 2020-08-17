@@ -11,6 +11,7 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+
   signupRequestPayload: SignupRequestPayload;
   signupForm: FormGroup;
 
@@ -49,7 +50,7 @@ export class SignupComponent implements OnInit {
           } else {
             this.router.navigate(['/login']);
           }
-        }, (data) => {
+        }, () => {
           this.toastr.error('Registration Failed! Please try again');
         });
     }

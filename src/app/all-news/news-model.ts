@@ -1,13 +1,6 @@
 export class NewsModel {
-  // id: number;
-  // postName: string;
-  // url: string;
-  // description: string;
-  // voteCount: number;
-  // userName: string;
-  // subredditName: string;
-  // commentCount: number;
-  // duration: string;
+  newsId: bigint;
+  userId: bigint;
   description: string;
   newsname: string;
   tags: string;
