@@ -1,0 +1,61 @@
+<div class="register-section">
+  <div class="row justify-content-center">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header" style="text-align: center">
+          <h4>Add News</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="addNewsForm" (ngSubmit)="addNews()" >
+            <div class="form-group row">
+              <label for="news_name" class="col-md-4 col-form-label text-md-right">News Name</label>
+              <div class="col-md-6">
+                <input type="text" [formControlName]="'newsname'" id="news_name" class="form-control" name="news-name">
+                <span *ngIf="!addNewsForm.get('newsname').valid && addNewsForm.get('newsname').touched" class="help-block">News name can`t be empty</span>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label text-md-right">Description</label>
+              <div class="col-md-6">
+                <input type="text" [formControlName]="'description'" class="form-control">
+                <span *ngIf="!addNewsForm.get('description').valid && addNewsForm.get('description').touched" class="help-block">Description can`t be empty</span>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="tags" class="col-md-4 col-form-label text-md-right">Tags</label>
+              <div class="col-md-6">
+                <input type="text" [formControlName]="'tags'" id="tags" class="form-control" name="tags">
+                <span *ngIf="!addNewsForm.get('tags').valid && addNewsForm.get('tags').touched" class="help-block">Tags can`t be empty</span>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="text" class="col-md-4 col-form-label text-md-right">Text</label>
+              <div class="col-md-6">
+                <input type="text" [formControlName]="'text'" id="text" class="form-control" name="password">
+                <span *ngIf="!addNewsForm.get('text').valid && addNewsForm.get('text').touched" class="help-block">Text can`t be empty</span>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="urlImg" class="col-md-4 col-form-label text-md-right">urlImg</label>
+              <div class="col-md-6">
+                <input type="text" [formControlName]="'urlImg'" id="urlImg" class="form-control" name="password">
+                <span *ngIf="!addNewsForm.get('urlImg').valid && addNewsForm.get('urlImg').touched" class="help-block">UrlImg can`t be empty</span>
+              </div>
+            </div>
+            <span class="col-md-6 offset-md-4">
+              <button type="submit" class="sign-up" >
+                Add News
+              </button>
+            </span>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>

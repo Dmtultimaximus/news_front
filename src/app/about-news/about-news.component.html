@@ -1,0 +1,44 @@
+<div class="reddit-body">
+  <div class="container">
+    <div class="row about-news d-inline-block" *ngIf="aboutNews">
+      <!-- Section to Display Votes-->
+      <div class="col-md-12">
+        <div class="news-name">
+          <h2>{{aboutNews.newsname}}</h2>
+        </div>
+        <div class="news-description">
+          <h3>description {{aboutNews.description}}</h3>
+        </div>
+        <div class="news-tags">
+          <p>tags {{aboutNews.tags}}</p>
+        </div>
+        <div class="news-text">
+          <p>text {{aboutNews.text}}</p>
+        </div>
+        <div class="url-image">
+          <div>urlImg {{aboutNews.urlImg}}</div>
+        </div>
+      </div>
+      <div *ngIf="userOwner()">
+        <div>
+          <button class="btn btn-primary" (click)="deleteNews()">delete</button>
+        </div>
+        <div>
+          <button class="btn btn-primary" (click)="updateNews(aboutNews.newsId)">update</button>
+        </div>
+      </div>
+      <div>
+        <h4>Rating: {{ratingNow}}</h4>
+      </div>
+      <br/>
+      <div class="flex-column" *ngIf="isAuth()&&alreadyAddedRating">
+        <h4>add rating</h4>
+        <button class="btn btn-danger" (click)="addRating(1)">1</button>
+        <button class="btn btn-danger" (click)="addRating(2)">2</button>
+        <button class="btn btn-danger" (click)="addRating(3)">3</button>
+        <button class="btn btn-danger" (click)="addRating(4)">4</button>
+        <button class="btn btn-danger" (click)="addRating(5)">5</button>
+      </div>
+    </div>
+  </div>
+</div>
