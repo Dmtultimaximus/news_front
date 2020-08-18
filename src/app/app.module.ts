@@ -18,6 +18,15 @@ import { AboutNewsComponent } from './about-news/about-news.component';
 import { UpdateNewsComponent } from './update-news/update-news.component';
 import { ProfileUserComponent } from './profile-user/profile-user.component';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatInputModule} from '@angular/material/input';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 
@@ -43,7 +52,16 @@ import {MatSliderModule} from '@angular/material/slider';
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    MatSliderModule
+    MatSliderModule,
+    MatFormFieldModule,
+    MatChipsModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatInputModule,
+    NgxPaginationModule
   ],
   providers: [
     {

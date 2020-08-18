@@ -25,11 +25,38 @@
             </div>
 
             <div class="form-group row">
-              <label for="tags" class="col-md-4 col-form-label text-md-right">Tags</label>
-              <div class="col-md-6">
-                <input type="text" [formControlName]="'tags'" id="tags" class="form-control" name="tags">
-                <span *ngIf="!addNewsForm.get('tags').valid && addNewsForm.get('tags').touched" class="help-block">Tags can`t be empty</span>
-              </div>
+<!--              <label for="tags" class="col-md-4 col-form-label text-md-right">Tags</label>-->
+<!--              <div class="col-md-6">-->
+<!--                <input type="text" [formControlName]="'tags'" id="tags" class="form-control" name="tags">-->
+<!--                <span *ngIf="!addNewsForm.get('tags').valid && addNewsForm.get('tags').touched" class="help-block">Tags can`t be empty</span>-->
+<!--              </div>-->
+
+              <mat-form-field class="example-chip-list">
+                <mat-chip-list #chipList aria-label="Fruit selection">
+                  <mat-chip
+                    *ngFor="let tag of tags"
+                    [selectable]="selectable"
+                    [removable]="removable"
+                    (removed)="remove(tag)">
+                    {{tag}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                  <input
+                    placeholder="New tags..."
+                    #tagInput
+                    [formControl]="tagsCtrl"
+                    [matAutocomplete]="auto"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                  <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                    {{tag}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+
             </div>
 
             <div class="form-group row">

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ObservableService} from '../service/observable-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AboutNewsService} from '../service/about-news.service';
@@ -8,6 +8,12 @@ import {ToastrService} from 'ngx-toastr';
 import {NewsUpdateRequestPayload} from './news-update-request.payload';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {NewsModel} from '../all-news/news-model';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {MatAutocomplete, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {allItTags} from '../add-news/add-news.component';
 
 @Component({
   selector: 'app-update-news',
@@ -15,6 +21,19 @@ import {NewsModel} from '../all-news/news-model';
   styleUrls: ['./update-news.component.css']
 })
 export class UpdateNewsComponent implements OnInit {
+
+  strToArrTags: string[];
+  visible = true;
+  selectable = true;
+  removable = true;
+  tagsCtrl = new FormControl(Validators.required);
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  filteredTags: Observable<string[]>;
+  tags: string[] = [];
+  allTags: string[] = allItTags;
+
+  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   newsUpdateRequestPayload: NewsUpdateRequestPayload;
   updateNewsForm: FormGroup;
@@ -31,13 +50,13 @@ export class UpdateNewsComponent implements OnInit {
     this.aboutService.getNews(newsId).subscribe(data => {
       // @ts-ignore
       this.aboutNews = data;
+      this.strToArrTags = this.aboutNews.tags.split(',');
+      this.tags = this.strToArrTags;
       this.updateNewsForm = new FormGroup({
         // @ts-ignore
         newsname: new FormControl(data.newsname),
         // @ts-ignore
         description: new FormControl(data.description),
-        // @ts-ignore
-        tags: new FormControl(data.tags),
         // @ts-ignore
         text: new FormControl(data.text),
         // @ts-ignore
@@ -52,7 +71,9 @@ export class UpdateNewsComponent implements OnInit {
       text: '',
       urlImg: ''
     };
-    // this.newsUpdateRequestPayload.newsname = this.aboutNews.newsname;
+    this.filteredTags = this.tagsCtrl.valueChanges.pipe(
+      startWith(null),
+      map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
   }
 
   ngOnInit(): void {
@@ -65,11 +86,47 @@ export class UpdateNewsComponent implements OnInit {
     });
   }
 
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our tag
+    if ((value || '').trim()) {
+      this.tags.push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+    // this.tagsCtrl.setValue(null);
+  }
+
+  remove(tag: string): void {
+    const index = this.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.tags.push(event.option.viewValue);
+    this.tagInput.nativeElement.value = '';
+    // this.tagsCtrl.setValue(null);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allTags.filter(tag => tag.toLowerCase().indexOf(filterValue) === 0);
+  }
+
   // tslint:disable-next-line:typedef
   updateNews() {
     this.newsUpdateRequestPayload.newsname = this.updateNewsForm.controls.newsname.value;
     this.newsUpdateRequestPayload.description = this.updateNewsForm.controls.description.value;
-    this.newsUpdateRequestPayload.tags = this.updateNewsForm.controls.tags.value;
+    this.newsUpdateRequestPayload.tags = this.tags.join(',');
     this.newsUpdateRequestPayload.text = this.updateNewsForm.controls.text.value;
     this.newsUpdateRequestPayload.urlImg = this.updateNewsForm.controls.urlImg.value;
     this.deleteUpdateNewsService.updateNews(this.aboutNews.newsId, this.newsUpdateRequestPayload).subscribe( data => {

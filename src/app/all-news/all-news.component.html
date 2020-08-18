@@ -1,6 +1,6 @@
 <div class="reddit-body">
   <div class="container">
-    <div class="row all-news" *ngFor="let news of news$.reverse()">
+    <div class="row all-news" *ngFor="let news of news$.reverse() | paginate:{itemsPerPage: numberPage, currentPage: p } ">
       <!-- Section to Display Votes-->
       <div class="col-md-12">
         <div class="news-name">
@@ -29,5 +29,6 @@
         <button class="btn btn-primary" (click)="about(news)">about</button>
       </div>
     </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
 </div>
