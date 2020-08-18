@@ -17,6 +17,7 @@
     </div>
     <div class="flex-grow-1 float-right">
       <a routerLink="/main" class="float-right login mr-2">Main Page</a>
+      <a *ngIf="isAuth()"  routerLink="/profile" class="float-right login mr-2">My profile</a>
       <a *ngIf="isAuth()"  routerLink="/add-news" class="float-right login mr-2">Add News</a>
       <a *ngIf="isAuth()" (click)="logOut()"  class="float-right login mr-2">Logout</a>
       <a *ngIf="!isAuth()" routerLink="/sign-up" class="float-right signup mr-2">Sign up</a>

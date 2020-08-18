@@ -14,7 +14,8 @@ export class ObservableService {
     newsname: '',
     tags: '',
     text: '',
-    urlImg: ''
+    urlImg: '',
+    rating: ''
   };
   private newsSubject$ = new BehaviorSubject<NewsModel>(this.aboutNews);
   newsTransition$ = this.newsSubject$.asObservable();

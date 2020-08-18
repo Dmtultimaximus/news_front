@@ -1,0 +1,33 @@
+<div class="reddit-body">
+  <div class="container">
+    <div class="row profile">
+      <div class="col-md-12" *ngIf="profileData">
+        <mat-slider min="1" max="100" step="1" value="1">123</mat-slider>
+        <p>User name: {{profileData.username}}</p>
+        <p>User email: {{profileData.email}}</p>
+        <p>Create date: {{profileData.createDate[0]}}.{{profileData.createDate[1]}}.{{profileData.createDate[2]}}</p>
+      </div>
+      <p>------------------------------------------</p>
+      <h3>My news</h3>
+      <div class="col-md-12" *ngFor="let news of userNews">
+        <div class="news-name">
+          <h2>newsname: {{news.newsname}}</h2>
+        </div>
+        <div class="news-description">
+          <h3>description: {{news.description}}</h3>
+        </div>
+        <div class="news-tags">
+          <p>tags: {{news.tags}}</p>
+        </div>
+        <div class="news-text">
+          <p>text: {{news.text}}</p>
+        </div>
+        <div class="url-image">
+          <div>urlImg: {{news.urlImg}}</div>
+          <br>
+          <p>---------------------------</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

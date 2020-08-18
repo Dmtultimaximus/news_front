@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {HttpBackend, HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -7,14 +7,18 @@ import {Observable} from 'rxjs';
 })
 export class AboutNewsService {
 
-  private httpClient: HttpClient;
+  constructor(private httpClient: HttpClient) {
 
-  constructor(private handler: HttpBackend) {
-    this.httpClient = new HttpClient(this.handler);
   }
+
   // @ts-ignore
   getNews(newsId): Observable<object> {
-    return this.httpClient.get('http://localhost:8080/api/news/getNews/' + newsId);
+    return this.httpClient.get('http://localhost:8080/api/news/getNews/' + newsId, {
+        headers: {
+          skip: 'true'
+        }
+      }
+    );
   }
 
 }

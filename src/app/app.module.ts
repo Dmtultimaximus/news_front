@@ -16,6 +16,9 @@ import {AllNewsComponent} from './all-news/all-news.component';
 import { AddNewsComponent } from './add-news/add-news.component';
 import { AboutNewsComponent } from './about-news/about-news.component';
 import { UpdateNewsComponent } from './update-news/update-news.component';
+import { ProfileUserComponent } from './profile-user/profile-user.component';
+import {MatSliderModule} from '@angular/material/slider';
+
 
 
 @NgModule({
@@ -28,7 +31,8 @@ import { UpdateNewsComponent } from './update-news/update-news.component';
     AllNewsComponent,
     AddNewsComponent,
     AboutNewsComponent,
-    UpdateNewsComponent
+    UpdateNewsComponent,
+    ProfileUserComponent
   ],
   imports: [
     BrowserModule,
@@ -38,8 +42,8 @@ import { UpdateNewsComponent } from './update-news/update-news.component';
     HttpClientModule,
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
-
+    ToastrModule.forRoot(),
+    MatSliderModule
   ],
   providers: [
     {

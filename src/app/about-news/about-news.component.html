@@ -28,7 +28,10 @@
         </div>
       </div>
       <div>
-        <h4>Rating: {{ratingNow}}</h4>
+        <h4 *ngIf="ratingNow !== 'NaN'; else next">Rating: {{ratingNow}}</h4>
+        <ng-template #next>
+          <h4>Rating: no rating yet</h4>
+        </ng-template>
       </div>
       <br/>
       <div class="flex-column" *ngIf="isAuth()&&alreadyAddedRating">

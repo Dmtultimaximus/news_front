@@ -39,19 +39,28 @@ export class AboutNewsComponent implements OnInit {
     this.aboutService.getNews(newsId).subscribe(data => {
       // @ts-ignore
       this.aboutNews = data;
-      console.log(data);
+      // @ts-ignore
+      console.log(typeof data.rating);
     });
     this.addRatingNewsRequestPayload = {
       newsId: null,
       rating: null
     };
-    this.ratingNewsService.checkRating(newsId).subscribe( data => {
-      // @ts-ignore
-      this.alreadyAddedRating = data.success;
-      console.log(this.alreadyAddedRating);
-    });
+    if (this.localStorage.retrieve('authenticationtoken')){
+      this.ratingNewsService.checkRating(newsId).subscribe( data => {
+        // @ts-ignore
+        this.alreadyAddedRating = data.success;
+        console.log(this.alreadyAddedRating);
+      });
+    }
     this.ratingNewsService.getRating(newsId).subscribe( datarating => {
-      this.ratingNow = datarating;
+      // @ts-ignore
+      if (datarating === 'NaN'){
+        this.ratingNow = datarating;
+      } else {
+        // @ts-ignore
+        this.ratingNow = datarating.toFixed(3);
+      }
       console.log('rating', datarating, typeof datarating);
     });
   }

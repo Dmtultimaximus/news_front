@@ -18,12 +18,12 @@ export class AllNewsComponent implements OnInit {
               private route: Router) {
     this.allNewsService.getAllNews().subscribe( data => {
       this.news$ = data;
+      console.log(data);
     });
   }
 
   ngOnInit(): void {
   }
-
   // tslint:disable-next-line:typedef
   public about(news: NewsModel) {
     this.observableService.aboutToNews(news);

@@ -13,21 +13,25 @@ import {SignupResponse} from '../auth/signup/signup-response';
 })
 export class AuthService {
 
-  private httpClient: HttpClient;
-
   constructor(
               private localStorage: LocalStorageService,
-              private handler: HttpBackend) {
-    this.httpClient = new HttpClient(this.handler);
+              private httpClient: HttpClient) {
   }
 
   signup(signupRequestPayload: SignupRequestPayload): Observable<object> {
-    return this.httpClient.post<SignupResponse>('http://localhost:8080/api/auth/signup', signupRequestPayload);
+    return this.httpClient.post<SignupResponse>('http://localhost:8080/api/auth/signup', signupRequestPayload, {
+      headers: {
+        skip: 'true'
+      }
+    });
   }
 
   login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
     console.log(loginRequestPayload);
-    return this.httpClient.post<LoginResponse>('http://localhost:8080/api/auth/login', loginRequestPayload)
+    return this.httpClient.post<LoginResponse>('http://localhost:8080/api/auth/login', loginRequestPayload, {
+      headers: {
+        skip: 'true'
+      }})
       .pipe(map(data => {
         this.localStorage.store('authenticationToken', data.authenticationToken);
         this.localStorage.store('username', data.username);

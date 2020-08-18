@@ -1,6 +1,6 @@
 <div class="reddit-body">
   <div class="container">
-    <div class="row all-news" *ngFor="let news of news$">
+    <div class="row all-news" *ngFor="let news of news$.reverse()">
       <!-- Section to Display Votes-->
       <div class="col-md-12">
         <div class="news-name">
@@ -17,6 +17,12 @@
         </div>
         <div class="url-image">
           <div>urlImg: {{news.urlImg}}</div>
+        </div>
+        <div class="rating">
+          <div *ngIf="news.rating !== 'NaN'; else next"><h4>Rating: {{(news.rating.toFixed(3))}}</h4></div>
+          <ng-template #next>
+            <h4>No Rating yet</h4>
+          </ng-template>
         </div>
       </div>
       <div>

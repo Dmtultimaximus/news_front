@@ -6,4 +6,5 @@ export class NewsModel {
   tags: string;
   text: string;
   urlImg: string;
+  rating: any;
 }
