@@ -7,6 +7,7 @@ import {AddNewsComponent} from './add-news/add-news.component';
 import {AboutNewsComponent} from './about-news/about-news.component';
 import {UpdateNewsComponent} from './update-news/update-news.component';
 import {ProfileUserComponent} from './profile-user/profile-user.component';
+import {AddImgNewsComponent} from './add-news/add-img-news/add-img-news.component';
 
 const routes: Routes = [
   { path: 'sign-up', component: SignupComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'add-news', component: AddNewsComponent},
   { path: 'about-news/:id', component: AboutNewsComponent},
   { path: 'update/:id', component: UpdateNewsComponent},
-  { path: 'profile', component: ProfileUserComponent}
+  { path: 'profile', component: ProfileUserComponent},
+  { path: 'add-image/:id', component: AddImgNewsComponent}
 ];
 
 @NgModule({

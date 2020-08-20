@@ -27,6 +27,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatInputModule} from '@angular/material/input';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { AddImgNewsComponent } from './add-news/add-img-news/add-img-news.component';
 
 
 
@@ -41,7 +42,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     AddNewsComponent,
     AboutNewsComponent,
     UpdateNewsComponent,
-    ProfileUserComponent
+    ProfileUserComponent,
+    AddImgNewsComponent
   ],
   imports: [
     BrowserModule,

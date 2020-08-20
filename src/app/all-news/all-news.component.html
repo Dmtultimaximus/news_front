@@ -16,7 +16,7 @@
           <p>text: {{news.text}}</p>
         </div>
         <div class="url-image">
-          <div>urlImg: {{news.urlImg}}</div>
+          <img src="{{news.urlImg}}" alt="no-img" height="200px">
         </div>
         <div class="rating">
           <div *ngIf="news.rating !== 'NaN'; else next"><h4>Rating: {{(news.rating.toFixed(3))}}</h4></div>

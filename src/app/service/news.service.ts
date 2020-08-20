@@ -18,4 +18,12 @@ export class NewsService {
       addNewsRequestPayload
     );
   }
+  upload(img: File, newsId): Observable<any>{
+    const formData = new FormData();
+    formData.append('multipartFile', img);
+    return this.httpClient.post<any>(`http://localhost:8080/api/cloud/upload/${newsId}`, formData );
+  }
+  delate(id: number): Observable<any>{
+    return this.httpClient.delete<any>(`http://localhost:8080/api/cloud/delete/${id}`);
+  }
 }

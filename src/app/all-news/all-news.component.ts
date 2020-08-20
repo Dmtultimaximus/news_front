@@ -24,11 +24,9 @@ export class AllNewsComponent implements OnInit {
       console.log(data);
     });
   }
-
   ngOnInit(): void {
   }
   // tslint:disable-next-line:typedef
-
   public about(news: NewsModel) {
     this.observableService.aboutToNews(news);
     this.route.navigate(['/about-news', news.newsId]);

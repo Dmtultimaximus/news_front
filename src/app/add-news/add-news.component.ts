@@ -22,6 +22,10 @@ export const allItTags: string[] = ['C++', 'Java', 'Python', 'Ruby', 'JavaScript
 
 export class AddNewsComponent implements OnInit {
 
+  @ViewChild('imageInputFile', {static: false}) imageFile: ElementRef;
+
+
+  img: File;
   visible = true;
   selectable = true;
   removable = true;
@@ -30,6 +34,7 @@ export class AddNewsComponent implements OnInit {
   filteredTags: Observable<string[]>;
   tags: string[] = ['C#'];
   allTags: string[] = allItTags;
+  Image: any;
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -57,8 +62,7 @@ export class AddNewsComponent implements OnInit {
     this.addNewsForm = new FormGroup({
       newsname: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      text: new FormControl('', Validators.required),
-      urlImg: new FormControl('', Validators.required)
+      text: new FormControl('', Validators.required)
     });
   }
 
@@ -102,10 +106,8 @@ export class AddNewsComponent implements OnInit {
     if (this.addNewsForm.valid) {
       this.addNewsRequestPayload.newsname = this.addNewsForm.get('newsname').value;
       this.addNewsRequestPayload.description = this.addNewsForm.get('description').value;
-      // this.addNewsRequestPayload.tags = this.addNewsForm.get('tags').value;
       this.addNewsRequestPayload.tags = this.tags.join(',');
       this.addNewsRequestPayload.text = this.addNewsForm.get('text').value;
-      this.addNewsRequestPayload.urlImg = this.addNewsForm.get('urlImg').value;
       console.log(this.addNewsRequestPayload);
       this.newsService.addNews(this.addNewsRequestPayload)
         .subscribe((data) => {
@@ -116,7 +118,9 @@ export class AddNewsComponent implements OnInit {
             // @ts-ignore
             console.log(data.success);
           } else {
-            this.router.navigate(['/main']);
+            console.log(data);
+            // @ts-ignore
+            this.router.navigate(['/add-image', data.newsId]);
           }
         }, (data) => {
           this.toastr.error('Registration Failed! Please try again');
