@@ -18,9 +18,11 @@ export class NewsService {
       addNewsRequestPayload
     );
   }
-  upload(img: File, newsId): Observable<any>{
+  upload(img: any[], newsId): Observable<any>{
     const formData = new FormData();
-    formData.append('multipartFile', img);
+    formData.append('multipartFile', img[0]);
+    formData.append('multipartFile', img[1]);
+    console.log(formData.getAll('multipartFile'));
     return this.httpClient.post<any>(`http://localhost:8080/api/cloud/upload/${newsId}`, formData );
   }
   delate(id: number): Observable<any>{

@@ -9,6 +9,7 @@ import {DeleteUpdateNewsService} from '../service/delete-update-news.service';
 import {ToastrService} from 'ngx-toastr';
 import {RatingNewsService} from '../service/rating-news.service';
 import {AddRatingNewsRequestPayload} from '../request-payload/add-rating-news-request-payload';
+import {AllImageNewsModel} from './all-image-news';
 
 @Component({
   selector: 'app-about-news',
@@ -21,6 +22,8 @@ export class AboutNewsComponent implements OnInit {
   ratingNow;
   subscription: Subscription;
   aboutNews: NewsModel;
+  allImageNews: AllImageNewsModel;
+  urlImg: string;
   addRatingNewsRequestPayload: AddRatingNewsRequestPayload;
 
   constructor(private observableService: ObservableService,
@@ -41,6 +44,11 @@ export class AboutNewsComponent implements OnInit {
       this.aboutNews = data;
       // @ts-ignore
       console.log(typeof data.rating);
+    });
+    this.aboutService.getImgNews(newsId).subscribe( data => {
+      // @ts-ignore
+      this.allImageNews = data;
+      console.log(this.allImageNews);
     });
     this.addRatingNewsRequestPayload = {
       newsId: null,

@@ -10,6 +10,7 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./add-img-news.component.css']
 })
 export class AddImgNewsComponent implements OnInit {
+  files: any = [];
   imagen: File;
   imagenMin: File;
   addNewsForm: FormGroup;
@@ -18,24 +19,21 @@ export class AddImgNewsComponent implements OnInit {
               private route: ActivatedRoute,
               private toastr: ToastrService) {}
   ngOnInit(): void {
-    this.addNewsForm = new FormGroup({
-      img: new FormControl('', Validators.required)
-    });
   }
   // tslint:disable-next-line:typedef
-  onFileChange(event) {
-    this.imagen = event.target.files[0];
-    const fr = new FileReader();
-    fr.onload = (evento: any) => {
-      this.imagenMin = evento.target.result;
-    };
-    fr.readAsDataURL(this.imagen);
-  }
+  // onFileChange(event) {
+  //   this.imagen = event.target.files[0];
+  //   const fr = new FileReader();
+  //   fr.onload = (evento: any) => {
+  //     this.imagenMin = evento.target.result;
+  //   };
+  //   fr.readAsDataURL(this.imagen);
+  // }
 
   onUpload(): void {
     // @ts-ignore
     console.log();
-    this.newsService.upload(this.imagen, this.route.snapshot.paramMap.get('id')).subscribe(
+    this.newsService.upload(this.files, this.route.snapshot.paramMap.get('id')).subscribe(
       data => {
         console.log(data);
         if (data.success){
@@ -46,5 +44,22 @@ export class AddImgNewsComponent implements OnInit {
         }
       }
     );
+  }
+  // tslint:disable-next-line:typedef
+  uploadFile(event) {
+    // tslint:disable-next-line:prefer-for-of
+    for (let index = 0; index < event.length; index++) {
+      const element = event[index];
+      this.files.push(element);
+    }
+  }
+  // tslint:disable-next-line:typedef
+  deleteAttachment(index) {
+    this.files.splice(index, 1);
+  }
+
+  // tslint:disable-next-line:typedef
+  uploadImage() {
+    console.log(this.files, 'dnd');
   }
 }

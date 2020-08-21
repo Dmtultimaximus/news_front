@@ -57,14 +57,17 @@
                 <span *ngIf="!updateNewsForm.get('text').valid && updateNewsForm.get('text').touched" class="help-block">Text can`t be empty</span>
               </div>
             </div>
-
-            <div class="form-group row">
-              <label for="urlImg" class="col-md-4 col-form-label text-md-right">urlImg</label>
-              <div class="col-md-6">
-                <input type="text" [value]="aboutNews.text" [formControlName]="'urlImg'" id="urlImg" class="form-control" name="password">
-                <span *ngIf="!updateNewsForm.get('urlImg').valid && updateNewsForm.get('urlImg').touched" class="help-block">UrlImg can`t be empty</span>
+<!--            block for added and delete image-->
+            <div>
+              <div class="main-image mb-5">
+                <p>main image</p>
+                <img src="{{aboutNews.urlImg}}" alt="no-img" height="200px">
+              </div>
+              <div class="d-inline url-image mr-2" *ngFor="let image of allImageNews" >
+                <img src="{{image.urlImg}}" alt="no-img" height="200px">
               </div>
             </div>
+
             <span class="col-md-6 offset-md-4">
               <button type="submit" class="sign-up">
                 update

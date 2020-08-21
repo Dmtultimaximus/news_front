@@ -14,6 +14,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {allItTags} from '../add-news/add-news.component';
+import {AllImageNewsModel} from '../about-news/all-image-news';
 
 @Component({
   selector: 'app-update-news',
@@ -31,6 +32,7 @@ export class UpdateNewsComponent implements OnInit {
   filteredTags: Observable<string[]>;
   tags: string[] = [];
   allTags: string[] = allItTags;
+  allImageNews: AllImageNewsModel;
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -58,10 +60,13 @@ export class UpdateNewsComponent implements OnInit {
         // @ts-ignore
         description: new FormControl(data.description),
         // @ts-ignore
-        text: new FormControl(data.text),
-        // @ts-ignore
-        urlImg: new FormControl(data.urlImg)
+        text: new FormControl(data.text)
       });
+      console.log(this.aboutNews);
+    });
+    this.aboutService.getImgNews(newsId).subscribe( data => {
+      // @ts-ignore
+      this.allImageNews = data;
     });
     // console.log(this.aboutNews);
     this.newsUpdateRequestPayload = {
@@ -82,7 +87,6 @@ export class UpdateNewsComponent implements OnInit {
       description: new FormControl(Validators.required),
       tags: new FormControl(Validators.required),
       text: new FormControl(Validators.required),
-      urlImg: new FormControl(Validators.required)
     });
   }
 
@@ -128,7 +132,6 @@ export class UpdateNewsComponent implements OnInit {
     this.newsUpdateRequestPayload.description = this.updateNewsForm.controls.description.value;
     this.newsUpdateRequestPayload.tags = this.tags.join(',');
     this.newsUpdateRequestPayload.text = this.updateNewsForm.controls.text.value;
-    this.newsUpdateRequestPayload.urlImg = this.updateNewsForm.controls.urlImg.value;
     this.deleteUpdateNewsService.updateNews(this.aboutNews.newsId, this.newsUpdateRequestPayload).subscribe( data => {
       // @ts-ignore
       if (data.success){

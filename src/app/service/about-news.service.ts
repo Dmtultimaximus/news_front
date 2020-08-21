@@ -10,7 +10,6 @@ export class AboutNewsService {
   constructor(private httpClient: HttpClient) {
 
   }
-
   // @ts-ignore
   getNews(newsId): Observable<object> {
     return this.httpClient.get('http://localhost:8080/api/news/getNews/' + newsId, {
@@ -20,5 +19,12 @@ export class AboutNewsService {
       }
     );
   }
-
+  getImgNews(newsId): Observable<object> {
+    return this.httpClient.get('http://localhost:8080/api/news/getAllImgNews/' + newsId, {
+        headers: {
+          skip: 'true'
+        }
+      }
+    );
+  }
 }

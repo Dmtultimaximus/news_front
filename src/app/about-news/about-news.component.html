@@ -15,9 +15,13 @@
         <div class="news-text">
           <p>text {{aboutNews.text}}</p>
         </div>
-        <div class="url-image">
-          <img src="{{aboutNews.urlImg}}" alt="no-img">
-          <div>urlImg {{aboutNews.urlImg}}</div>
+        <div class="url-image mb-5">
+          <h2>main image</h2>
+          <img src="{{aboutNews.urlImg}}" alt="no-img" height="200px">
+        </div>
+          <h2>other image</h2>
+        <div class="d-inline url-image mr-2" *ngFor="let image of allImageNews" >
+          <img src="{{image.urlImg}}" alt="no-img" height="200px">
         </div>
       </div>
       <div *ngIf="userOwner()">
