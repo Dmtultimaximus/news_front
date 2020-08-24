@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row about-news d-inline-block" *ngIf="aboutNews">
       <!-- Section to Display Votes-->
-      <div class="col-md-12">
+      <div class="col-md-12" *ngIf="allImageNews">
         <div class="news-name">
           <h2>{{aboutNews.newsname}}</h2>
         </div>
@@ -17,10 +17,10 @@
         </div>
         <div class="url-image mb-5">
           <h2>main image</h2>
-          <img src="{{aboutNews.urlImg}}" alt="no-img" height="200px">
+          <img src="{{mainImageNews[0].urlImg}}" alt="no-img" height="200px">
         </div>
           <h2>other image</h2>
-        <div class="d-inline url-image mr-2" *ngFor="let image of allImageNews" >
+        <div class="d-inline url-image mr-2" *ngFor="let image of otherImageNews" >
           <img src="{{image.urlImg}}" alt="no-img" height="200px">
         </div>
       </div>

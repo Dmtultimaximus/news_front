@@ -4,4 +4,5 @@ export  class AllImageNewsModel{
   nameImg: string;
   urlImg: string;
   cloudIdImg: string;
+  mainImg: boolean;
 }

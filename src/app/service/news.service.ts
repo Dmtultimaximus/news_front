@@ -8,7 +8,6 @@ import {AddNewsResponse} from '../add-news/add-news-response';
   providedIn: 'root'
 })
 export class NewsService {
-
   constructor(private httpClient: HttpClient) { }
 
   // tslint:disable-next-line:typedef
@@ -18,14 +17,23 @@ export class NewsService {
       addNewsRequestPayload
     );
   }
-  upload(img: any[], newsId): Observable<any>{
+  upload(Img: any[], newsId): Observable<any>{
     const formData = new FormData();
-    formData.append('multipartFile', img[0]);
-    formData.append('multipartFile', img[1]);
-    console.log(formData.getAll('multipartFile'));
+    // tslint:disable-next-line:forin
+    for (const i of Img){
+      formData.append('multipartFile', i);
+    }
     return this.httpClient.post<any>(`http://localhost:8080/api/cloud/upload/${newsId}`, formData );
   }
-  delate(id: number): Observable<any>{
+  uploadOther(Img: any[], newsId): Observable<any>{
+    const formData = new FormData();
+    // tslint:disable-next-line:forin
+    for (const i of Img){
+      formData.append('multipartFile', i);
+    }
+    return this.httpClient.post<any>(`http://localhost:8080/api/cloud/uploadOther/${newsId}`, formData );
+  }
+  delete(id: string): Observable<any>{
     return this.httpClient.delete<any>(`http://localhost:8080/api/cloud/delete/${id}`);
   }
 }

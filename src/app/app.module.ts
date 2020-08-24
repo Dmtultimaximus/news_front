@@ -28,7 +28,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatInputModule} from '@angular/material/input';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AddImgNewsComponent } from './add-news/add-img-news/add-img-news.component';
-import { DragDropDirective } from './add-news/add-img-news/drag-and-drop.directive';
+import { DragDropDirective } from './directive/drag-and-drop.directive';
 
 
 

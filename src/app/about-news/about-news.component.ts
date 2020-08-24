@@ -25,6 +25,8 @@ export class AboutNewsComponent implements OnInit {
   allImageNews: AllImageNewsModel;
   urlImg: string;
   addRatingNewsRequestPayload: AddRatingNewsRequestPayload;
+  mainImageNews: AllImageNewsModel[] = [];
+  otherImageNews: AllImageNewsModel[] = [];
 
   constructor(private observableService: ObservableService,
               private route: ActivatedRoute,
@@ -43,12 +45,17 @@ export class AboutNewsComponent implements OnInit {
       // @ts-ignore
       this.aboutNews = data;
       // @ts-ignore
-      console.log(typeof data.rating);
     });
     this.aboutService.getImgNews(newsId).subscribe( data => {
       // @ts-ignore
       this.allImageNews = data;
+      // @ts-ignore
+      for (const i of this.allImageNews ){
+        i.mainImg ? this.mainImageNews.push(i) : this.otherImageNews.push(i);
+      }
       console.log(this.allImageNews);
+      console.log(this.mainImageNews);
+      console.log(this.otherImageNews);
     });
     this.addRatingNewsRequestPayload = {
       newsId: null,

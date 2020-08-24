@@ -7,20 +7,24 @@
           <h4>Update News</h4>
         </div>
         <div class="card-body" *ngIf="aboutNews">
-          <form [formGroup]="updateNewsForm" (ngSubmit)="updateNews()" >
+          <form [formGroup]="updateNewsForm" (ngSubmit)="updateNews()">
             <div class="form-group row">
               <label for="news_name" class="col-md-4 col-form-label text-md-right">News Name</label>
               <div class="col-md-6">
-                <input type="text" [value]="aboutNews.newsname" [formControlName]="'newsname'" id="news_name" class="form-control" name="news-name">
-                <span *ngIf="!updateNewsForm.get('newsname').valid && updateNewsForm.get('newsname').touched" class="help-block">News name can`t be empty</span>
+                <input type="text" [value]="aboutNews.newsname" [formControlName]="'newsname'" id="news_name"
+                       class="form-control" name="news-name">
+                <span *ngIf="!updateNewsForm.get('newsname').valid && updateNewsForm.get('newsname').touched"
+                      class="help-block">News name can`t be empty</span>
               </div>
             </div>
 
             <div class="form-group row">
               <label class="col-md-4 col-form-label text-md-right">Description</label>
               <div class="col-md-6">
-                <input type="text" [value]="aboutNews.description" [formControlName]="'description'" class="form-control">
-                <span *ngIf="!updateNewsForm.get('description').valid && updateNewsForm.get('description').touched" class="help-block">Description can`t be empty</span>
+                <input type="text" [value]="aboutNews.description" [formControlName]="'description'"
+                       class="form-control">
+                <span *ngIf="!updateNewsForm.get('description').valid && updateNewsForm.get('description').touched"
+                      class="help-block">Description can`t be empty</span>
               </div>
             </div>
 
@@ -53,18 +57,74 @@
             <div class="form-group row">
               <label for="text" class="col-md-4 col-form-label text-md-right">Text</label>
               <div class="col-md-6">
-                <input type="text" [value]="aboutNews.text" [formControlName]="'text'" id="text" class="form-control" name="password">
-                <span *ngIf="!updateNewsForm.get('text').valid && updateNewsForm.get('text').touched" class="help-block">Text can`t be empty</span>
+                <input type="text" [value]="aboutNews.text" [formControlName]="'text'" id="text" class="form-control"
+                       name="password">
+                <span *ngIf="!updateNewsForm.get('text').valid && updateNewsForm.get('text').touched"
+                      class="help-block">Text can`t be empty</span>
               </div>
             </div>
-<!--            block for added and delete image-->
+            <!--            block for added and delete image-->
             <div>
               <div class="main-image mb-5">
                 <p>main image</p>
-                <img src="{{aboutNews.urlImg}}" alt="no-img" height="200px">
+
+                <div *ngIf="!isEmptyImg">
+                  <div *ngFor="let image of mainImageNews">
+                    <img src="{{image.urlImg}}" alt="no-img" height="200px">
+                    <button (click)="deleteMainImg(image.cloudIdImg)" type="button" class="btn btn-danger">
+                      delete
+                    </button>
+                  </div>
+                </div>
+
+                <div *ngIf="isEmptyImg">
+                  <div *ngIf="!filesMain.length" class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadMainFile($event)">
+                    <input hidden type="file" #fileInput (change)="uploadMainFile($event.target.files)">
+                  </div>
+                  <div  class="files-list" *ngFor="let file of filesMain;let i= index">
+                    <p> {{ file.name }} </p>
+                    <button class="delete-file" type="button" (click)="deleteAttachmentMain(i)">
+                      <img src="../../assets/Recycle_Bin_Full.png">
+                    </button>
+                  </div>
+                  <div>
+                    <button type="button" (click)="onUploadMainImg()" class="btn btn-danger upload-img" >
+                      upload main
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div class="d-inline url-image mr-2" *ngFor="let image of allImageNews" >
-                <img src="{{image.urlImg}}" alt="no-img" height="200px">
+
+              <div class="other-image">
+                <p>other image</p>
+                <div class="d-inline url-image mr-2" *ngFor="let image of otherImageNews">
+                  <img src="{{image.urlImg}}" alt="no-img" height="200px">
+                  <button (click)="deleteOtherImg(image.cloudIdImg)" type="button" class="btn btn-danger">
+                    del
+                  </button>
+                </div>
+                <div>
+                  <button (click)="addOtherImg()" type="button" class="btn btn-danger mt-5">
+                    add other img
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="isAddedOther">
+              <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadOtherFile($event)">
+                <input hidden type="file" #fileInput (change)="uploadOtherFile($event.target.files)">
+              </div>
+              <div class="files-list" *ngFor="let file of filesOther;let i= index">
+                <p> {{ file.name }} </p>
+                <button class="delete-file" (click)="deleteAttachmentOther(i)">
+                  <img src="../../assets/Recycle_Bin_Full.png">
+                </button>
+              </div>
+              <div>
+                <button type="button" (click)="onUploadOtherImg()" class="btn btn-danger upload-img" >
+                  upload other
+                </button>
               </div>
             </div>
 
@@ -73,6 +133,7 @@
                 update
               </button>
             </span>
+
           </form>
         </div>
       </div>
