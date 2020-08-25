@@ -22,20 +22,16 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // tslint:disable-next-line:typedef
-  isAuth() {
-    // @ts-ignore
+  isAuth(): boolean {
     return !!this.localStorage.retrieve('username');
   }
 
-  // tslint:disable-next-line:typedef
-  logOut() {
+  logOut(): void {
     console.log(this.localStorage.retrieve('authenticationtoken'));
     this.logoutService.logout({
       token: this.localStorage.retrieve('authenticationtoken')
     })
       .subscribe((data) => {
-        // @ts-ignore
         if (data) {
           this.toastr.success('You logout');
           this.localStorage.clear('username');

@@ -11,7 +11,6 @@ export class AboutNewsService {
   constructor(private httpClient: HttpClient) {
 
   }
-  // @ts-ignore
   getNews(newsId): Observable<object> {
     return this.httpClient.get('http://localhost:8080/api/news/getNews/' + newsId, {
         headers: {

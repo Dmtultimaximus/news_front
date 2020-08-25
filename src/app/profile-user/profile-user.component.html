@@ -18,27 +18,34 @@
           <table mat-table [dataSource]="dataSource" matSort>
 
             <ng-container matColumnDef="newsId">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> newsId </th>
-              <td mat-cell *matCellDef="let row"> {{row.newsId}} </td>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> newsId</th>
+              <td mat-cell *matCellDef="let row"> {{row.newsId}}
+                <button class="btn btn-danger ml-3" (click)="deleteNews(row.newsId)">
+                  del
+                </button>
+                <button class="btn btn-info ml-3" (click)="aboutNews(row.newsId)">
+                  ?
+                </button>
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="newsname">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> newsname </th>
-              <td mat-cell *matCellDef="let row"> {{row.newsname}}% </td>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> newsname</th>
+              <td mat-cell *matCellDef="let row"> {{row.newsname}}%</td>
             </ng-container>
 
             <ng-container matColumnDef="description">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> description </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> description</th>
               <td mat-cell *matCellDef="let row"> {{row.description}} </td>
             </ng-container>
 
             <ng-container matColumnDef="tags">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> tags </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> tags</th>
               <td mat-cell *matCellDef="let row"> {{row.tags}} </td>
             </ng-container>
 
             <ng-container matColumnDef="text">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> text </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> text</th>
               <td mat-cell *matCellDef="let row"> {{row.text}} </td>
             </ng-container>
 

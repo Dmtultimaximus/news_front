@@ -32,13 +32,11 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', Validators.required )
     });
   }
-  // tslint:disable-next-line:typedef
-  login() {
+  login(): void {
     this.loginRequestPayload.password = this.loginForm.get('password').value;
     this.loginRequestPayload.username = this.loginForm.get('username').value;
     this.authService.login(this.loginRequestPayload).subscribe(data => {
       if (data) {
-        console.log(data);
         this.isError = false;
         this.router.navigateByUrl('/main');
         this.toastr.success('Login successful');

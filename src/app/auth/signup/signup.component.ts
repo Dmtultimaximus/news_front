@@ -40,12 +40,9 @@ export class SignupComponent implements OnInit {
       this.signupRequestPayload.password = this.signupForm.get('password').value;
       console.log(this.signupRequestPayload);
       this.authService.signup(this.signupRequestPayload)
-        .subscribe((data) => {
-          // @ts-ignore
+        .subscribe((data: any) => {
           if (!data.success){
-            // @ts-ignore
             this.toastr.error(data.message);
-            // @ts-ignore
             console.log(data.success);
           } else {
             this.router.navigate(['/login']);

@@ -29,6 +29,8 @@ import {MatInputModule} from '@angular/material/input';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AddImgNewsComponent } from './add-news/add-img-news/add-img-news.component';
 import { DragDropDirective } from './directive/drag-and-drop.directive';
+import { UpdateTextComponent } from './update-news/update-text/update-text.component';
+import { UpdateImageComponent } from './update-news/update-image/update-image.component';
 
 
 
@@ -45,7 +47,9 @@ import { DragDropDirective } from './directive/drag-and-drop.directive';
     UpdateNewsComponent,
     ProfileUserComponent,
     AddImgNewsComponent,
-    DragDropDirective
+    DragDropDirective,
+    UpdateTextComponent,
+    UpdateImageComponent
   ],
   imports: [
     BrowserModule,

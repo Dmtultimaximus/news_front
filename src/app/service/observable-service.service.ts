@@ -20,8 +20,7 @@ export class ObservableService {
   private newsSubject$ = new BehaviorSubject<NewsModel>(this.aboutNews);
   newsTransition$ = this.newsSubject$.asObservable();
   constructor() { }
-  // tslint:disable-next-line:typedef
-  aboutToNews(newsModel: NewsModel){
+  aboutToNews(newsModel: NewsModel): void{
     this.aboutNews = newsModel;
     this.newsSubject$.next(newsModel);
   }

@@ -11,7 +11,6 @@ export class RatingNewsService {
   constructor(private httpClient: HttpClient) {
   }
 
-  // tslint:disable-next-line:typedef
   addRating(addRatingNewsRequestPayload: AddRatingNewsRequestPayload): Observable<object> {
     return this.httpClient.post(
       'http://localhost:8080/api/rating/addRating', addRatingNewsRequestPayload);

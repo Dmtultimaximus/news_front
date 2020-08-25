@@ -21,7 +21,7 @@ export class AddImgNewsComponent implements OnInit {
   }
 
   onUpload(): void {
-    // @ts-ignore
+    // this need spinner
     this.newsService.upload(this.files, this.route.snapshot.paramMap.get('id')).subscribe(
       data => {
         console.log(data, 'пришло');
@@ -34,21 +34,18 @@ export class AddImgNewsComponent implements OnInit {
       }
     );
   }
-  // tslint:disable-next-line:typedef
-  uploadFile(event) {
-    // tslint:disable-next-line:prefer-for-of
-    for (let index = 0; index < event.length; index++) {
-      const element = event[index];
+  uploadFile(fileList: FileList): void {
+    for (let index = 0; index < fileList.length; index++) {
+      const element = fileList.item(index);
       this.files.push(element);
     }
   }
-  // tslint:disable-next-line:typedef
-  deleteAttachment(index) {
+
+  deleteAttachment(index): void {
     this.files.splice(index, 1);
   }
 
-  // tslint:disable-next-line:typedef
-  uploadImage() {
+  uploadImage(): void {
     console.log(this.files, 'dnd');
   }
 }

@@ -9,7 +9,6 @@ export class ProfileUserService {
 
   constructor(private http: HttpClient) { }
 
-  // tslint:disable-next-line:typedef
   getDataOfUser(): Observable<object> {
     return  this.http.get('http://localhost:8080/api/auth/getDetailsOfUser');
   }

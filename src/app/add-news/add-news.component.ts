@@ -22,11 +22,7 @@ export const allItTags: string[] = ['C++', 'Java', 'Python', 'Ruby', 'JavaScript
 
 export class AddNewsComponent implements OnInit {
 
-  @ViewChild('imageInputFile', {static: false}) imageFile: ElementRef;
-
-
   img: File;
-  visible = true;
   selectable = true;
   removable = true;
   tagsCtrl = new FormControl(Validators.required);
@@ -34,7 +30,6 @@ export class AddNewsComponent implements OnInit {
   filteredTags: Observable<string[]>;
   tags: string[] = ['C#'];
   allTags: string[] = allItTags;
-  Image: any;
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -79,7 +74,6 @@ export class AddNewsComponent implements OnInit {
     if (input) {
       input.value = '';
     }
-    // this.tagsCtrl.setValue(null);
   }
 
   remove(tag: string): void {
@@ -93,7 +87,6 @@ export class AddNewsComponent implements OnInit {
   selected(event: MatAutocompleteSelectedEvent): void {
     this.tags.push(event.option.viewValue);
     this.tagInput.nativeElement.value = '';
-    // this.tagsCtrl.setValue(null);
   }
 
   private _filter(value: string): string[] {
@@ -110,20 +103,16 @@ export class AddNewsComponent implements OnInit {
       this.addNewsRequestPayload.text = this.addNewsForm.get('text').value;
       console.log(this.addNewsRequestPayload);
       this.newsService.addNews(this.addNewsRequestPayload)
-        .subscribe((data) => {
-          // @ts-ignore
+        .subscribe((data: any) => {
           if (!data.success) {
-            // @ts-ignore
             this.toastr.error(data.message);
-            // @ts-ignore
             console.log(data.success);
           } else {
             console.log(data);
-            // @ts-ignore
             this.router.navigate(['/add-image', data.newsId]);
           }
         }, (data) => {
-          this.toastr.error('Registration Failed! Please try again');
+          this.toastr.error('Authentification Failed! Please login and try again');
         });
     } else {
       this.toastr.error('Form invalid');

@@ -12,24 +12,21 @@ export class DragDropDirective {
   @HostBinding('style.opacity') private opacity = '1';
 
   // Dragover listener
-  // tslint:disable-next-line:typedef
-  @HostListener('dragover', ['$event']) onDragOver(evt) {
+  @HostListener('dragover', ['$event']) onDragOver(evt): void {
     evt.preventDefault();
     evt.stopPropagation();
     this.background = '#9ecbec';
     this.opacity = '0.8';
   }
   // Dragleave listener
-  // tslint:disable-next-line:typedef
-  @HostListener('dragleave', ['$event']) public onDragLeave(evt) {
+  @HostListener('dragleave', ['$event']) public onDragLeave(evt): void {
     evt.preventDefault();
     evt.stopPropagation();
     this.background = '#f5fcff';
     this.opacity = '1';
   }
   // Drop listener
-  // tslint:disable-next-line:typedef
-  @HostListener('drop', ['$event']) public ondrop(evt) {
+  @HostListener('drop', ['$event']) public ondrop(evt): void {
     evt.preventDefault();
     evt.stopPropagation();
     this.background = '#f5fcff';
