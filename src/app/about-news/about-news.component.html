@@ -1,0 +1,60 @@
+<div class="reddit-body">
+  <div class="container">
+    <div class="row about-news d-inline-block" *ngIf="aboutNews">
+      <!-- Section to Display Votes-->
+      <div class="col-md-12" *ngIf="allImageNews">
+        <div class="news-name">
+          <h2>{{aboutNews.newsname}}</h2>
+        </div>
+        <div class="news-description">
+          <h3>description {{aboutNews.description}}</h3>
+        </div>
+        <div class="news-tags">
+          <p>tags {{aboutNews.tags}}</p>
+        </div>
+        <div class="news-text">
+          <p>text {{aboutNews.text}}</p>
+        </div>
+        <div class="url-image mb-5">
+          <h2>main image</h2>
+          <img src="{{mainImageNews[0].urlImg}}" alt="no-img" height="200px">
+        </div>
+          <h2>other image</h2>
+        <div class="d-inline url-image mr-2" *ngFor="let image of otherImageNews" >
+          <img src="{{image.urlImg}}" alt="no-img" height="200px">
+        </div>
+      </div>
+      <div *ngIf="userOwner()">
+        <div>
+          <button class="btn btn-primary" (click)="deleteNews()">delete</button>
+        </div>
+        <div>
+          <button class="btn btn-primary" (click)="updateNews(aboutNews.newsId)">update</button>
+        </div>
+      </div>
+      <div>
+        <h4 *ngIf="ratingNow !== 'NaN'; else next">Rating: {{ratingNow}}</h4>
+        <ng-template #next>
+          <h4>Rating: no rating yet</h4>
+        </ng-template>
+      </div>
+      <br/>
+      <div class="flex-column" *ngIf="isAuth()&&alreadyAddedRating">
+        <h4>add rating</h4>
+        <button class="btn btn-danger" (click)="addRating(1)">1</button>
+        <button class="btn btn-danger" (click)="addRating(2)">2</button>
+        <button class="btn btn-danger" (click)="addRating(3)">3</button>
+        <button class="btn btn-danger" (click)="addRating(4)">4</button>
+        <button class="btn btn-danger" (click)="addRating(5)">5</button>
+      </div>
+      <div class="content">
+        <div *ngFor="let msg of messageService.msg">
+          {{msg}}
+        </div>
+      </div>
+      <input class="form-control" type="text" placeholder="message" [(ngModel)]="input">
+      <button class="btn btn-success" (click)="sendMessage()">Send</button>
+
+    </div>
+  </div>
+</div>

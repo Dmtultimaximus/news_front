@@ -1,0 +1,63 @@
+
+  <div class="image">
+    <div class="main-image mb-5">
+      <h2 class="text-center" >MAIN IMAGE</h2>
+
+      <div *ngIf="!isEmptyImg">
+        <div *ngFor="let image of mainImageNews">
+          <img src="{{image.urlImg}}" alt="no-img" height="200px">
+          <button (click)="deleteMainImg(image.cloudIdImg)" type="button" class="btn btn-danger">
+            delete
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="isEmptyImg">
+        <div *ngIf="!filesMain.length" class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadMainFile($event)">
+          <input hidden type="file" #fileInput (change)="uploadMainFile($event.target.files)">
+        </div>
+        <div  class="files-list" *ngFor="let file of filesMain;let i= index">
+          <p> {{ file.name }} </p>
+          <button class="delete-file" type="button" (click)="deleteAttachmentMain(i)">
+            <img src="../../../assets/Recycle_Bin_Full.png">
+          </button>
+        </div>
+        <div>
+          <button type="button" (click)="onUploadMainImg()" class="btn btn-danger upload-img" >
+            upload main
+          </button>
+        </div>
+      </div>
+    </div>
+    <h2 class="text-center">OTHER IMAGE</h2>
+    <div class="other-image">
+      <div class="url-image mr-2 d-inline" *ngFor="let image of otherImageNews">
+        <img src="{{image.urlImg}}" alt="no-img" height="200px">
+        <button (click)="deleteOtherImg(image.cloudIdImg)" type="button" class="btn btn-danger btn-img">
+          del
+        </button>
+      </div>
+    </div>
+    <div>
+      <button (click)="addOtherImg()" type="button" class="btn btn-danger mt-5">
+        add other img
+      </button>
+    </div>
+
+    <div *ngIf="isAddedOther">
+      <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadOtherFile($event)">
+        <input hidden type="file" #fileInput (change)="uploadOtherFile($event.target.files)">
+      </div>
+      <div class="files-list" *ngFor="let file of filesOther;let i= index">
+        <p> {{ file.name }} </p>
+        <button class="delete-file" (click)="deleteAttachmentOther(i)">
+          <img src="../../../assets/Recycle_Bin_Full.png">
+        </button>
+      </div>
+      <div>
+        <button type="button" (click)="onUploadOtherImg()" class="btn btn-danger upload-img" >
+          upload other
+        </button>
+      </div>
+    </div>
+</div>
