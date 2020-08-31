@@ -11,7 +11,7 @@ export class AllNewsService {
   constructor(private httpClient: HttpClient) {
   }
   getAllNews(): Observable<Array<NewsModel>> {
-    return this.httpClient.get<Array<NewsModel>>('http://localhost:8080/api/news/getAllNews', {
+    return this.httpClient.get<Array<NewsModel>>('http://localhost:8080/api/news', {
         headers: {
           skip: 'true'
         }

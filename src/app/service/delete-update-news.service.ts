@@ -11,10 +11,9 @@ export class DeleteUpdateNewsService {
   constructor(private httpClient: HttpClient) {
   }
   deleteNews(newsId): Observable<object> {
-    return this.httpClient.delete('http://localhost:8080/api/news/deleteNews/' + newsId);
+    return this.httpClient.delete('http://localhost:8080/api/news/' + newsId);
   }
   updateNews(newsId, newsUpdateRequestPayload: NewsUpdateRequestPayload): Observable<object> {
-    console.log(newsId, newsUpdateRequestPayload);
-    return this.httpClient.put('http://localhost:8080/api/news/updateNews/' + newsId, newsUpdateRequestPayload);
+    return this.httpClient.put('http://localhost:8080/api/news/' + newsId, newsUpdateRequestPayload);
   }
 }

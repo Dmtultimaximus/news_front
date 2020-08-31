@@ -47,6 +47,14 @@
         <button class="btn btn-danger" (click)="addRating(4)">4</button>
         <button class="btn btn-danger" (click)="addRating(5)">5</button>
       </div>
+      <div class="content">
+        <div *ngFor="let msg of messageService.msg">
+          {{msg}}
+        </div>
+      </div>
+      <input class="form-control" type="text" placeholder="message" [(ngModel)]="input">
+      <button class="btn btn-success" (click)="sendMessage()">Send</button>
+
     </div>
   </div>
 </div>

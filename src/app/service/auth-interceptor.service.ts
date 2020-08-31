@@ -3,6 +3,8 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {Observable, throwError} from 'rxjs';
 import {LocalStorageService} from 'ngx-webstorage';
 import {catchError} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 export const HTTP_AUT = 'skip';
 
@@ -12,7 +14,9 @@ export const HTTP_AUT = 'skip';
 
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private localStorage: LocalStorageService) {
+  constructor(private localStorage: LocalStorageService,
+              private route: Router,
+              private toastr: ToastrService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -34,6 +38,8 @@ export class AuthInterceptorService implements HttpInterceptor {
           this.localStorage.clear('username');
           this.localStorage.clear('authenticationtoken');
           this.localStorage.clear('userId');
+          this.toastr.error('Login pls!');
+          this.route.navigate(['/login']);
         }
         return throwError(errorMsg);
       })

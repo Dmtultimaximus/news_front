@@ -12,7 +12,7 @@ export class AboutNewsService {
 
   }
   getNews(newsId): Observable<object> {
-    return this.httpClient.get('http://localhost:8080/api/news/getNews/' + newsId, {
+    return this.httpClient.get('http://localhost:8080/api/news/' + newsId, {
         headers: {
           skip: 'true'
         }
@@ -20,7 +20,7 @@ export class AboutNewsService {
     );
   }
   getImgNews(newsId): Observable<object> {
-    return this.httpClient.get('http://localhost:8080/api/news/getAllImgNews/' + newsId, {
+    return this.httpClient.get('http://localhost:8080/api/cloud/' + newsId, {
         headers: {
           skip: 'true'
         }

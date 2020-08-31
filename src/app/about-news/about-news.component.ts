@@ -10,7 +10,9 @@ import {ToastrService} from 'ngx-toastr';
 import {RatingNewsService} from '../service/rating-news.service';
 import {AddRatingNewsRequestPayload} from '../request-payload/add-rating-news-request-payload';
 import {AllImageNewsModel} from './all-image-news';
-import {map, mergeMap} from 'rxjs/operators';
+import {map, mergeMap, publish} from 'rxjs/operators';
+import {MessageService} from '../service/message.service';
+import {CommentModel} from './comment-model';
 
 @Component({
   selector: 'app-about-news',
@@ -21,20 +23,24 @@ export class AboutNewsComponent implements OnInit {
   alreadyAddedRating = false;
   isUpdate = false;
   ratingNow;
+  comment: CommentModel;
   aboutNews: NewsModel;
   allImageNews: any[];
   urlImg: string;
   addRatingNewsRequestPayload: AddRatingNewsRequestPayload;
   mainImageNews: AllImageNewsModel[] = [];
   otherImageNews: AllImageNewsModel[] = [];
-
+  public newsId = this.route.snapshot.paramMap.get('id');
+  title = 'websocket-frontend';
+  input;
   constructor(private route: ActivatedRoute,
               private aboutService: AboutNewsService,
               private localStorage: LocalStorageService,
               private deleteNewsService: DeleteUpdateNewsService,
               private router: Router,
               private toastr: ToastrService,
-              private ratingNewsService: RatingNewsService) {
+              private ratingNewsService: RatingNewsService,
+              public messageService: MessageService) {
     const newsId = this.route.snapshot.paramMap.get('id');
     this.aboutService.getNews(newsId).subscribe((data: NewsModel) => {
       this.aboutNews = data;
@@ -52,6 +58,10 @@ export class AboutNewsComponent implements OnInit {
       newsId: null,
       rating: null
     };
+    this.comment = {
+      text: '',
+      username: ''
+    };
     if (this.localStorage.retrieve('authenticationtoken')) {
       this.ratingNewsService.checkRating(newsId).subscribe((data: any) => {
         this.alreadyAddedRating = data.success;
@@ -68,7 +78,14 @@ export class AboutNewsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+  }
+  sendMessage(newsId): void {
+    if (this.input) {
+      this.comment.text = this.input;
+      this.comment.username = this.localStorage.retrieve('username');
+      this.messageService.sendMessage(this.comment.text, this.newsId);
+      this.input = '';
+    }
   }
 
   isAuth(): boolean {
@@ -85,7 +102,7 @@ export class AboutNewsComponent implements OnInit {
         this.toastr.success(data.message);
         this.router.navigate(['/main']);
       } else {
-        this.toastr.success(data.message);
+        this.toastr.error(data.message);
       }
     });
   }

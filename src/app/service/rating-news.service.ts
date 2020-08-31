@@ -13,11 +13,11 @@ export class RatingNewsService {
 
   addRating(addRatingNewsRequestPayload: AddRatingNewsRequestPayload): Observable<object> {
     return this.httpClient.post(
-      'http://localhost:8080/api/rating/addRating', addRatingNewsRequestPayload);
+      'http://localhost:8080/api/rating/add', addRatingNewsRequestPayload);
   }
 
   getRating(newsId): Observable<object> {
-    return this.httpClient.get('http://localhost:8080/api/rating/getRating?newsId=' + newsId, {
+    return this.httpClient.get('http://localhost:8080/api/rating?newsId=' + newsId, {
       headers: {
         skip: 'true'
       }
@@ -26,6 +26,6 @@ export class RatingNewsService {
 
   checkRating(newsId): Observable<object> {
     return this.httpClient.get(
-      'http://localhost:8080/api/rating/checkRating?newsId=' + newsId);
+      'http://localhost:8080/api/rating/check?newsId=' + newsId);
   }
 }

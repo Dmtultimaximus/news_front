@@ -9,7 +9,6 @@ import {DeleteUpdateNewsService} from '../service/delete-update-news.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {map, mergeMap} from 'rxjs/operators';
-import {NewsModel} from '../all-news/news-model';
 
 @Component({
   selector: 'app-profile-user',
@@ -18,7 +17,6 @@ import {NewsModel} from '../all-news/news-model';
 })
 export class ProfileUserComponent implements OnInit {
   profileData: ProfileData;
-  userNews: Array<object> = [];
 
   displayedColumns: string[] = ['newsId', 'newsname', 'description', 'tags', 'text'];
   dataSource: MatTableDataSource<UserDataNews>;
@@ -34,6 +32,7 @@ export class ProfileUserComponent implements OnInit {
       this.profileData = data;
     });
     this.profileService.getUserNews().subscribe((data: any)  => {
+      console.log(data);
       this.dataSource = new MatTableDataSource<UserDataNews>(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -67,6 +66,10 @@ export class ProfileUserComponent implements OnInit {
 
   aboutNews(newsId): void {
       this.route.navigate(['/about-news', newsId]);
+  }
+
+  addNews(): void {
+    this.route.navigate(['/add-news']);
   }
 }
 

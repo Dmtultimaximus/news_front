@@ -11,7 +11,7 @@ export class NewsService {
   constructor(private httpClient: HttpClient) { }
   addNews(addNewsRequestPayload: AddNewsRequestPayload): Observable<object> {
     return this.httpClient.post<AddNewsResponse>(
-      'http://localhost:8080/api/news/addNews',
+      'http://localhost:8080/api/news/',
       addNewsRequestPayload
     );
   }
@@ -20,16 +20,16 @@ export class NewsService {
     for (const i of Img){
       formData.append('multipartFile', i);
     }
-    return this.httpClient.post<any>(`http://localhost:8080/api/cloud/upload/${newsId}`, formData );
+    return this.httpClient.post<any>(`http://localhost:8080/api/cloud/${newsId}`, formData );
   }
   uploadOther(Img: any[], newsId): Observable<any>{
     const formData = new FormData();
     for (const i of Img){
       formData.append('multipartFile', i);
     }
-    return this.httpClient.post<any>(`http://localhost:8080/api/cloud/uploadOther/${newsId}`, formData );
+    return this.httpClient.post<any>(`http://localhost:8080/api/cloud/other/${newsId}`, formData );
   }
   delete(id: string): Observable<any>{
-    return this.httpClient.delete<any>(`http://localhost:8080/api/cloud/delete/${id}`);
+    return this.httpClient.delete<any>(`http://localhost:8080/api/cloud/${id}`);
   }
 }

@@ -5,9 +5,12 @@
         <p>User name: {{profileData.username}}</p>
         <p>User email: {{profileData.email}}</p>
         <p>Create date: {{profileData.createDate[0]}}.{{profileData.createDate[1]}}.{{profileData.createDate[2]}}</p>
+        <p>------------------------------------------</p>
+        <h3>My news</h3>
+        <button class="btn btn-dark d-block ml-auto" (click)="addNews()">
+          add news
+        </button>
       </div>
-      <p>------------------------------------------</p>
-      <h3>My news</h3>
       <div class="my-news-table">
         <mat-form-field>
           <mat-label>Filter</mat-label>

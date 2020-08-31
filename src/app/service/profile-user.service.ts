@@ -10,9 +10,9 @@ export class ProfileUserService {
   constructor(private http: HttpClient) { }
 
   getDataOfUser(): Observable<object> {
-    return  this.http.get('http://localhost:8080/api/auth/getDetailsOfUser');
+    return  this.http.get('http://localhost:8080/api/auth/get-details-user');
   }
   getUserNews(): Observable<object> {
-    return  this.http.get('http://localhost:8080/api/news/getUsersNews');
+    return  this.http.get('http://localhost:8080/api/news/profile/user');
   }
 }
