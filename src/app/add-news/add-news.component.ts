@@ -104,11 +104,9 @@ export class AddNewsComponent implements OnInit {
       console.log(this.addNewsRequestPayload);
       this.newsService.addNews(this.addNewsRequestPayload)
         .subscribe((data: any) => {
-          if (!data.success) {
-            this.toastr.error(data.message);
-            console.log(data.success);
+          if (!data) {
+            this.toastr.error('news not added');
           } else {
-            console.log(data);
             this.router.navigate(['/add-image', data.newsId]);
           }
         }, (data) => {

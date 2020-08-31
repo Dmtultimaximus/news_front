@@ -45,11 +45,10 @@ export class UpdateImageComponent implements OnInit {
 
   onUploadMainImg(): void {
     // multiplay subscribe
-    // mergeMap
     // this need spinner
     if (this.newsService.upload(this.filesMain, this.route.snapshot.paramMap.get('id')).pipe(
       map(data => {
-        return data.success;
+        return data;
       }),
       mergeMap(data => this.aboutService.getImgNews(this.route.snapshot.paramMap.get('id')))).subscribe(
       (mainImg: any[]) => {
@@ -60,7 +59,6 @@ export class UpdateImageComponent implements OnInit {
         }
         this.isEmptyImg = false;
         this.filesMain = [];
-        console.log(this.mainImageNews, 'main img after downloand');
       })) {
       this.toastr.success('Img Added');
     } else {
@@ -69,10 +67,9 @@ export class UpdateImageComponent implements OnInit {
   }
 
   onUploadOtherImg(): void {
-    console.log(this.filesOther);
     // this need spinner
     if (this.newsService.uploadOther(this.filesOther, this.route.snapshot.paramMap.get('id')).pipe(map(data => {
-      return data.success;
+      return data;
     }), mergeMap(data => this.aboutService.getImgNews(this.route.snapshot.paramMap.get('id')))).subscribe(
       (Img: any[]) => {
         this.otherImageNews = [];
@@ -112,8 +109,8 @@ export class UpdateImageComponent implements OnInit {
   }
 
   deleteMainImg(cloudIdImg: string): void {
-    this.newsService.delete(cloudIdImg).subscribe(data => {
-      if (data.success) {
+    this.newsService.delete(cloudIdImg).subscribe((data: boolean) => {
+      if (data) {
         this.isEmptyImg = true;
         this.mainImageNews = [];
       }

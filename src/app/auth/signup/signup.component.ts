@@ -41,9 +41,8 @@ export class SignupComponent implements OnInit {
       console.log(this.signupRequestPayload);
       this.authService.signup(this.signupRequestPayload)
         .subscribe((data: any) => {
-          if (!data.success){
-            this.toastr.error(data.message);
-            console.log(data.success);
+          if (!data){
+            this.toastr.error('Email or password occupied');
           } else {
             this.router.navigate(['/login']);
           }

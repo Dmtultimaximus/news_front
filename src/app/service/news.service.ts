@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AddNewsRequestPayload} from '../add-news/add-news-request.payload';
 import {Observable} from 'rxjs';
-import {AddNewsResponse} from '../add-news/add-news-response';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ import {AddNewsResponse} from '../add-news/add-news-response';
 export class NewsService {
   constructor(private httpClient: HttpClient) { }
   addNews(addNewsRequestPayload: AddNewsRequestPayload): Observable<object> {
-    return this.httpClient.post<AddNewsResponse>(
+    return this.httpClient.post(
       'http://localhost:8080/api/news/',
       addNewsRequestPayload
     );

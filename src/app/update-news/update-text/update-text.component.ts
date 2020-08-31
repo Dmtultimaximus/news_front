@@ -115,11 +115,11 @@ export class UpdateTextComponent implements OnInit {
     this.newsUpdateRequestPayload.text = this.updateNewsForm.controls.text.value;
     this.deleteUpdateNewsService.updateNews(this.aboutNews.newsId, this.newsUpdateRequestPayload).subscribe(
       (data: any) => {
-        if (data.success) {
+        if (data) {
           this.router.navigate(['/main']);
-          this.toastr.success(data.message);
+          this.toastr.success('success');
         } else {
-          this.toastr.success(data.message);
+          this.toastr.error('error');
         }
       });
   }

@@ -33,6 +33,7 @@ export class AboutNewsComponent implements OnInit {
   public newsId = this.route.snapshot.paramMap.get('id');
   title = 'websocket-frontend';
   input;
+
   constructor(private route: ActivatedRoute,
               private aboutService: AboutNewsService,
               private localStorage: LocalStorageService,
@@ -64,8 +65,7 @@ export class AboutNewsComponent implements OnInit {
     };
     if (this.localStorage.retrieve('authenticationtoken')) {
       this.ratingNewsService.checkRating(newsId).subscribe((data: any) => {
-        this.alreadyAddedRating = data.success;
-        console.log(this.alreadyAddedRating);
+        this.alreadyAddedRating = data;
       });
     }
     this.ratingNewsService.getRating(newsId).subscribe((datarating: any) => {
@@ -79,6 +79,7 @@ export class AboutNewsComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   sendMessage(newsId): void {
     if (this.input) {
       this.comment.text = this.input;
@@ -98,11 +99,11 @@ export class AboutNewsComponent implements OnInit {
 
   deleteNews(): void {
     this.deleteNewsService.deleteNews(this.aboutNews.newsId).subscribe((data: any) => {
-      if (data.success) {
-        this.toastr.success(data.message);
+      if (data) {
+        this.toastr.success('success');
         this.router.navigate(['/main']);
       } else {
-        this.toastr.error(data.message);
+        this.toastr.error('error');
       }
     });
   }
@@ -117,7 +118,7 @@ export class AboutNewsComponent implements OnInit {
 
     this.ratingNewsService.addRating(this.addRatingNewsRequestPayload).pipe(map(
       (data: any) => {
-        return console.log(data.message);
+        return data;
       }),
       mergeMap(datarating => this.ratingNewsService.getRating(this.route.snapshot.paramMap.get('id')))).subscribe(
       (datarating: any) => {

@@ -25,7 +25,7 @@ export class AddImgNewsComponent implements OnInit {
     this.newsService.upload(this.files, this.route.snapshot.paramMap.get('id')).subscribe(
       data => {
         console.log(data, 'пришло');
-        if (data.success){
+        if (data){
           this.router.navigate(['/main']);
           this.toastr.success('Img Added');
         } else {
