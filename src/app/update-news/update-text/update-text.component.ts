@@ -116,7 +116,7 @@ export class UpdateTextComponent implements OnInit {
     this.deleteUpdateNewsService.updateNews(this.aboutNews.newsId, this.newsUpdateRequestPayload).subscribe(
       (data: any) => {
         if (data) {
-          this.router.navigate(['/main']);
+          this.router.navigate(['/news/all']);
           this.toastr.success('success');
         } else {
           this.toastr.error('error');

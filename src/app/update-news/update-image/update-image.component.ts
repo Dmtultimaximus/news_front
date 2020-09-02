@@ -21,14 +21,15 @@ export class UpdateImageComponent implements OnInit {
   // doing init ALWAYS!!!
   mainImageNews: AllImageNewsModel[] = [];
   otherImageNews: AllImageNewsModel[] = [];
-
+  newsId;
   constructor(private route: ActivatedRoute,
               private aboutService: AboutNewsService,
               private newsService: NewsService,
               private toastr: ToastrService) {
 
-    const newsId = this.route.snapshot.paramMap.get('id');
-    this.aboutService.getImgNews(newsId).subscribe((data: any[]) => {
+    this.newsId = this.route.snapshot.paramMap.get('id');
+    console.log(this.route.snapshot);
+    this.aboutService.getImgNews(this.newsId).subscribe((data: any[]) => {
       this.allImageNews = data;
       console.log(this.allImageNews, 'array?', typeof this.allImageNews);
       for (const i of this.allImageNews) {
@@ -46,11 +47,11 @@ export class UpdateImageComponent implements OnInit {
   onUploadMainImg(): void {
     // multiplay subscribe
     // this need spinner
-    if (this.newsService.upload(this.filesMain, this.route.snapshot.paramMap.get('id')).pipe(
+    if (this.newsService.upload(this.filesMain, this.newsId).pipe(
       map(data => {
         return data;
       }),
-      mergeMap(data => this.aboutService.getImgNews(this.route.snapshot.paramMap.get('id')))).subscribe(
+      mergeMap(data => this.aboutService.getImgNews(this.newsId))).subscribe(
       (mainImg: any[]) => {
         for (const i of mainImg) {
           if (i.mainImg) {
@@ -68,9 +69,9 @@ export class UpdateImageComponent implements OnInit {
 
   onUploadOtherImg(): void {
     // this need spinner
-    if (this.newsService.uploadOther(this.filesOther, this.route.snapshot.paramMap.get('id')).pipe(map(data => {
+    if (this.newsService.uploadOther(this.filesOther, this.newsId).pipe(map(data => {
       return data;
-    }), mergeMap(data => this.aboutService.getImgNews(this.route.snapshot.paramMap.get('id')))).subscribe(
+    }), mergeMap(data => this.aboutService.getImgNews(this.newsId))).subscribe(
       (Img: any[]) => {
         this.otherImageNews = [];
         for (const i of Img) {
@@ -121,7 +122,7 @@ export class UpdateImageComponent implements OnInit {
     this.newsService.delete(cloudIdImg).pipe(map(data => {
         return console.log(data);
       }),
-      mergeMap(data => this.aboutService.getImgNews(this.route.snapshot.paramMap.get('id')))).subscribe(
+      mergeMap(data => this.aboutService.getImgNews(this.newsId))).subscribe(
       (otherImg: any[]) => {
         this.otherImageNews = [];
         for (const i of otherImg) {

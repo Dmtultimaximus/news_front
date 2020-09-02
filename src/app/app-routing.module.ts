@@ -8,16 +8,23 @@ import {AboutNewsComponent} from './about-news/about-news.component';
 import {UpdateNewsComponent} from './update-news/update-news.component';
 import {ProfileUserComponent} from './profile-user/profile-user.component';
 import {AddImgNewsComponent} from './add-news/add-img-news/add-img-news.component';
+import {NewsComponent} from './news/news.component';
 
 const routes: Routes = [
   {path: 'sign-up', component: SignupComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'main', component: AllNewsComponent},
   {path: 'add-news', component: AddNewsComponent},
-  {path: 'about-news/:id', component: AboutNewsComponent},
   {path: 'update/:id', component: UpdateNewsComponent},
   {path: 'profile', component: ProfileUserComponent},
-  {path: 'add-image/:id', component: AddImgNewsComponent}
+  {path: 'add-image/:id', component: AddImgNewsComponent},
+  {
+    path: 'news', component: NewsComponent,
+    children: [
+      {path: 'all', component: AllNewsComponent},
+      {path: ':id', component: AboutNewsComponent},
+      {path: ':id/update', component: UpdateNewsComponent},
+    ]
+  }
 ];
 
 @NgModule({

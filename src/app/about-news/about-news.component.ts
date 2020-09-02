@@ -30,10 +30,10 @@ export class AboutNewsComponent implements OnInit {
   addRatingNewsRequestPayload: AddRatingNewsRequestPayload;
   mainImageNews: AllImageNewsModel[] = [];
   otherImageNews: AllImageNewsModel[] = [];
-  public newsId = this.route.snapshot.paramMap.get('id');
+  newsId;
   title = 'websocket-frontend';
   input;
-
+  user;
   constructor(private route: ActivatedRoute,
               private aboutService: AboutNewsService,
               private localStorage: LocalStorageService,
@@ -42,18 +42,25 @@ export class AboutNewsComponent implements OnInit {
               private toastr: ToastrService,
               private ratingNewsService: RatingNewsService,
               public messageService: MessageService) {
-    const newsId = this.route.snapshot.paramMap.get('id');
-    this.aboutService.getNews(newsId).subscribe((data: NewsModel) => {
+    this.newsId = this.route.snapshot.paramMap.get('id');
+
+    if (this.messageService.status){
+      console.log('status true');
+      this.messageService.stompClient.disconnect();
+    } else {
+      console.log('status false');
+    }
+    this.messageService.initializeWebSocketConnection(this.newsId);
+
+    this.user = this.localStorage.retrieve('username');
+    this.aboutService.getNews(this.newsId).subscribe((data: NewsModel) => {
       this.aboutNews = data;
     });
-    this.aboutService.getImgNews(newsId).subscribe((data: any[]) => {
+    this.aboutService.getImgNews(this.newsId).subscribe((data: any[]) => {
       this.allImageNews = data;
       for (const i of this.allImageNews) {
         i.mainImg ? this.mainImageNews.push(i) : this.otherImageNews.push(i);
       }
-      console.log(this.allImageNews);
-      console.log(this.mainImageNews);
-      console.log(this.otherImageNews);
     });
     this.addRatingNewsRequestPayload = {
       newsId: null,
@@ -64,11 +71,11 @@ export class AboutNewsComponent implements OnInit {
       username: ''
     };
     if (this.localStorage.retrieve('authenticationtoken')) {
-      this.ratingNewsService.checkRating(newsId).subscribe((data: any) => {
+      this.ratingNewsService.checkRating(this.newsId).subscribe((data: any) => {
         this.alreadyAddedRating = data;
       });
     }
-    this.ratingNewsService.getRating(newsId).subscribe((datarating: any) => {
+    this.ratingNewsService.getRating(this.newsId).subscribe((datarating: any) => {
       if (datarating === 'NaN') {
         this.ratingNow = datarating;
       } else {
@@ -78,9 +85,10 @@ export class AboutNewsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
-  sendMessage(newsId): void {
+  sendMessage(): void {
     if (this.input) {
       this.comment.text = this.input;
       this.comment.username = this.localStorage.retrieve('username');
@@ -101,15 +109,15 @@ export class AboutNewsComponent implements OnInit {
     this.deleteNewsService.deleteNews(this.aboutNews.newsId).subscribe((data: any) => {
       if (data) {
         this.toastr.success('success');
-        this.router.navigate(['/main']);
+        this.router.navigate(['/news/all']);
       } else {
         this.toastr.error('error');
       }
     });
   }
 
-  updateNews(newsId): void {
-    this.router.navigate(['/update', newsId]);
+  updateNews(newsId: bigint): void {
+    this.router.navigate([`news/${this.newsId}/update`]);
   }
 
   addRating(rating): void {
@@ -120,7 +128,7 @@ export class AboutNewsComponent implements OnInit {
       (data: any) => {
         return data;
       }),
-      mergeMap(datarating => this.ratingNewsService.getRating(this.route.snapshot.paramMap.get('id')))).subscribe(
+      mergeMap(datarating => this.ratingNewsService.getRating(this.newsId))).subscribe(
       (datarating: any) => {
         if (datarating === 'NaN') {
           this.ratingNow = datarating;

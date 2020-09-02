@@ -26,6 +26,6 @@ export class AllNewsComponent implements OnInit {
   ngOnInit(): void {
   }
   about(news: NewsModel): void {
-    this.route.navigate(['/about-news', news.newsId]);
+    this.route.navigate(['news', news.newsId]);
   }
 }

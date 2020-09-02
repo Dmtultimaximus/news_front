@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
           this.localStorage.clear('username');
           this.localStorage.clear('authenticationtoken');
           this.localStorage.clear('userId');
-          this.router.navigateByUrl('/main');
+          this.router.navigateByUrl('/news/all');
         }
       }, (data) => {
         this.toastr.error('Registration Failed! Please try again');

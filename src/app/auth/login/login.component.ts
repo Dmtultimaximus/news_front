@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginRequestPayload).subscribe(data => {
       if (data) {
         this.isError = false;
-        this.router.navigateByUrl('/main');
+        this.router.navigateByUrl('/news/all');
         this.toastr.success('Login successful');
       } else {
         this.isError = true;

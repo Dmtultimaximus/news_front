@@ -1,9 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { SignupComponent } from './auth/signup/signup.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HeaderComponent} from './header/header.component';
+import {SignupComponent} from './auth/signup/signup.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -13,10 +13,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {AuthInterceptorService} from './service/auth-interceptor.service';
 import {AllNewsComponent} from './all-news/all-news.component';
-import { AddNewsComponent } from './add-news/add-news.component';
-import { AboutNewsComponent } from './about-news/about-news.component';
-import { UpdateNewsComponent } from './update-news/update-news.component';
-import { ProfileUserComponent } from './profile-user/profile-user.component';
+import {AddNewsComponent} from './add-news/add-news.component';
+import {AboutNewsComponent} from './about-news/about-news.component';
+import {UpdateNewsComponent} from './update-news/update-news.component';
+import {ProfileUserComponent} from './profile-user/profile-user.component';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatChipsModule} from '@angular/material/chips';
@@ -27,11 +27,11 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatInputModule} from '@angular/material/input';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { AddImgNewsComponent } from './add-news/add-img-news/add-img-news.component';
-import { DragDropDirective } from './directive/drag-and-drop.directive';
-import { UpdateTextComponent } from './update-news/update-text/update-text.component';
-import { UpdateImageComponent } from './update-news/update-image/update-image.component';
-
+import {AddImgNewsComponent} from './add-news/add-img-news/add-img-news.component';
+import {DragDropDirective} from './directive/drag-and-drop.directive';
+import {UpdateTextComponent} from './update-news/update-text/update-text.component';
+import {UpdateImageComponent} from './update-news/update-image/update-image.component';
+import {NewsComponent} from './news/news.component';
 
 
 @NgModule({
@@ -49,7 +49,8 @@ import { UpdateImageComponent } from './update-news/update-image/update-image.co
     AddImgNewsComponent,
     DragDropDirective,
     UpdateTextComponent,
-    UpdateImageComponent
+    UpdateImageComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
@@ -81,4 +82,5 @@ import { UpdateImageComponent } from './update-news/update-image/update-image.co
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+}

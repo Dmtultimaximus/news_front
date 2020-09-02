@@ -54,7 +54,7 @@ export class ProfileUserComponent implements OnInit {
   deleteNews(newsId): void {
     this.deleteNewsService.deleteNews(newsId).pipe(map(
       (data: any) => {
-        return this.toastr.success(data.message);
+        return this.toastr.success('deleted');
       }),
       mergeMap(data => this.profileService.getUserNews())).subscribe(
       (dataUsers: any) => {
@@ -65,7 +65,7 @@ export class ProfileUserComponent implements OnInit {
   }
 
   aboutNews(newsId): void {
-      this.route.navigate(['/about-news', newsId]);
+      this.route.navigate(['/news', newsId]);
   }
 
   addNews(): void {

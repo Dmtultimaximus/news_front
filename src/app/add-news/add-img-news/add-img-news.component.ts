@@ -26,7 +26,7 @@ export class AddImgNewsComponent implements OnInit {
       data => {
         console.log(data, 'пришло');
         if (data){
-          this.router.navigate(['/main']);
+          this.router.navigate(['/news/all']);
           this.toastr.success('Img Added');
         } else {
           this.toastr.error('Img not Added');

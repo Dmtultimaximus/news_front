@@ -1,5 +1,6 @@
 <div class="reddit-body">
   <div class="container">
+    <router-outlet></router-outlet>
     <div class="row about-news d-inline-block" *ngIf="aboutNews">
       <!-- Section to Display Votes-->
       <div class="col-md-12" *ngIf="allImageNews">
@@ -48,8 +49,10 @@
         <button class="btn btn-danger" (click)="addRating(5)">5</button>
       </div>
       <div class="content">
-        <div *ngFor="let msg of messageService.msg">
-          {{msg}}
+        <div class="mt-1" *ngFor="let msg of messageService.dataMessage">
+          <span class="font-weight-light" >{{msg.date[0]}}.{{msg.date[1]}}.{{msg.date[2]}} / {{msg.date[3]}}:{{msg.date[4]}}</span>
+          <span> --- {{msg.user}}</span>
+          <div>{{msg.text}}</div>
         </div>
       </div>
       <input class="form-control" type="text" placeholder="message" [(ngModel)]="input">
