@@ -48,10 +48,13 @@
         <button class="btn btn-danger" (click)="addRating(4)">4</button>
         <button class="btn btn-danger" (click)="addRating(5)">5</button>
       </div>
-      <div class="content">
-        <div class="mt-1" *ngFor="let msg of messageService.dataMessage">
+      <div class="content" *ngIf="messageService.alreadyAddedLike">
+        <div class="mt-1" *ngFor="let msg of messageService.dataMessage; index as i">
           <span class="font-weight-light" >{{msg.date[0]}}.{{msg.date[1]}}.{{msg.date[2]}} / {{msg.date[3]}}:{{msg.date[4]}}</span>
-          <span> --- {{msg.user}}</span>
+          <span> --- {{msg.user}}---</span>
+          <span *ngIf="messageService.alreadyAddedLike[i].check"><button class="btn-small btn-danger" (click)="addLike(msg.commentId, i)">+</button></span>
+          <span *ngIf="!messageService.alreadyAddedLike[i].check"><button class="btn-small btn-dark" disabled>+</button></span>
+          <span>-- Likes {{msg.likes}}</span>
           <div>{{msg.text}}</div>
         </div>
       </div>

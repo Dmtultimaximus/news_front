@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ObservableService} from '../service/observable-service.service';
-import {pipe, Subscription} from 'rxjs';
 import {NewsModel} from '../all-news/news-model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AboutNewsService} from '../service/about-news.service';
@@ -10,9 +8,10 @@ import {ToastrService} from 'ngx-toastr';
 import {RatingNewsService} from '../service/rating-news.service';
 import {AddRatingNewsRequestPayload} from '../request-payload/add-rating-news-request-payload';
 import {AllImageNewsModel} from './all-image-news';
-import {map, mergeMap, publish} from 'rxjs/operators';
+import {map, mergeMap} from 'rxjs/operators';
 import {MessageService} from '../service/message.service';
 import {CommentModel} from './comment-model';
+import {LikeService} from '../service/like.service';
 
 @Component({
   selector: 'app-about-news',
@@ -41,14 +40,12 @@ export class AboutNewsComponent implements OnInit {
               private router: Router,
               private toastr: ToastrService,
               private ratingNewsService: RatingNewsService,
-              public messageService: MessageService) {
+              public messageService: MessageService,
+              private likeService: LikeService) {
     this.newsId = this.route.snapshot.paramMap.get('id');
 
-    if (this.messageService.status){
-      console.log('status true');
+    if (this.messageService.status) {
       this.messageService.stompClient.disconnect();
-    } else {
-      console.log('status false');
     }
     this.messageService.initializeWebSocketConnection(this.newsId);
 
@@ -73,6 +70,9 @@ export class AboutNewsComponent implements OnInit {
     if (this.localStorage.retrieve('authenticationtoken')) {
       this.ratingNewsService.checkRating(this.newsId).subscribe((data: any) => {
         this.alreadyAddedRating = data;
+      });
+      this.likeService.checkLike(this.newsId).subscribe( (data: any) => {
+        this.messageService.alreadyAddedLike = data;
       });
     }
     this.ratingNewsService.getRating(this.newsId).subscribe((datarating: any) => {
@@ -138,5 +138,20 @@ export class AboutNewsComponent implements OnInit {
         this.toastr.success('rating added');
         this.alreadyAddedRating = false;
       });
+  }
+  addLike(commentId, i): void {
+    this.likeService.addLike(commentId).subscribe(
+      data => {
+        if (data){
+          // @ts-ignore
+          this.messageService.alreadyAddedLike[i].check = !this.messageService.alreadyAddedLike[i].check;
+          this.messageService.incLike(this.messageService.dataMessage[i]);
+          console.log(this.messageService.dataMessage[i]);
+          console.log('true');
+        } else {
+          console.log('false');
+        }
+      }
+    );
   }
 }

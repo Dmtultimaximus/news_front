@@ -9,6 +9,7 @@ declare var Stomp;
 
 class MessageType {
   date: any[] = [];
+  commentId: string;
   text: string;
   likes: bigint;
   user: string;
@@ -24,7 +25,7 @@ export class MessageService {
   private headers;
   public stompClient;
   public dataMessage: object[];
-
+  public alreadyAddedLike: object[];
   private messageBody: string[];
   public status: string;
   constructor(private localStorage: LocalStorageService,
@@ -34,9 +35,9 @@ export class MessageService {
   }
 
   initializeWebSocketConnection(newsId): void {
-    const separator = '$:';
-    this.commentService.getComment(newsId).subscribe((data: any) => {
+    this.commentService.getComment(newsId).subscribe((data: object[]) => {
       this.dataMessage = data;
+      console.log(this.dataMessage);
     });
     const serverUrl = 'http://localhost:8080/api/socket/';
     const ws = new SockJS(serverUrl);
@@ -50,11 +51,22 @@ export class MessageService {
       this.stompClient.subscribe(`/message/${newsId}`, (message, headers) => {
         if (message.body) {
           this.buildMessage(message.body);
+          this.createLike();
         }
       });
     });
   }
-
+  createLike(): void {
+    const objectCheck = {
+      userId: this.localStorage.retrieve('userid'),
+      check: true
+    };
+    this.alreadyAddedLike.push(objectCheck);
+  }
+  incLike(object): void{
+    object.likes = object.likes + 1 ;
+    console.log(object);
+  }
   buildMessage(message): any {
     const separator = '$:';
     this.msg = new MessageType();
@@ -65,17 +77,19 @@ export class MessageService {
     this.msg.date.push(new Date().getMinutes());
     this.messageBody = message.split(separator);
     this.msg.text = '';
-    if (this.messageBody.length === 2){
+    if (this.messageBody.length === 3){
       this.msg.text = this.messageBody[0];
       this.msg.user = this.messageBody[1];
+      this.msg.commentId = this.messageBody[2];
     } else {
-      for (let index = 0; index < this.messageBody.length - 1; index++){
+      for (let index = 0; index < this.messageBody.length - 2; index++){
         this.msg.text += this.messageBody[index];
       }
-      this.msg.user = this.messageBody[this.messageBody.length - 1];
+      this.msg.user = this.messageBody[this.messageBody.length - 2];
     }
     this.msg.likes = null;
     this.dataMessage.push(this.msg);
+    console.log(this.dataMessage, 'after added message');
   }
 
   sendMessage(message, newsId): void {
