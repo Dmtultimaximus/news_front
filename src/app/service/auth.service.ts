@@ -39,4 +39,8 @@ export class AuthService {
         return true;
       }));
   }
+
+  getDataOfUser(): Observable<object> {
+    return  this.httpClient.get('http://localhost:8080/api/auth/get-details-user');
+  }
 }

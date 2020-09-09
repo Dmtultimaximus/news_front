@@ -1,0 +1,67 @@
+<br><br><br><br>
+
+
+
+<div class="container" >
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex users" *ngFor="let user of dataUsers">
+        <div class="w-25 d-flex justify-content-around flex-column">
+          <div>Username: {{user.username}}</div>
+          <div>Email: {{user.email}}</div>
+          <div>Active: {{user.enabled}}</div>
+        </div>
+        <div>
+          <p>Role:</p>
+          <div *ngFor="let i of user.authority ">
+            <div class="d-inline-block">{{i.authority}}</div>
+          </div>
+          <button *ngIf="triggerAdd(user.authority)" class="btn-sm btn-success" (click)="openVerticallyCentered(contentAdd)">add</button>
+          <button *ngIf="!triggerAdd(user.authority)" class="btn-sm btn-dark"  disabled >add</button>
+          <button *ngIf="triggerDel(user.authority)" class="btn-sm btn-danger ml-1" (click)="openVerticallyCentered(contentDel)">del</button>
+          <button *ngIf="!triggerDel(user.authority)" class="btn-sm btn-dark" disabled >del</button>
+
+          <ng-template #contentDel let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title">Delete Role</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>One fine body&hellip;</p>
+              <div *ngFor="let i of user.authority ">
+                <div class="d-inline-block">{{i.authority}}</div>
+                <button class="btn-sm btn-danger ml-1 d-inline-block" (click)="deleteRole(user.userId, i.roleId); modal.close('Close')">del</button>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            </div>
+          </ng-template>
+
+          <ng-template #contentAdd let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title">Add Role</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div *ngFor="let role of roles">
+                <div class="d-inline-block">{{role.authority}}</div>
+                <button class="btn-sm btn-success ml-1 d-inline-block" *ngIf="!check(role, user.authority)" (click)="addRole(user.userId, role.roleId); modal.close('Close') ">add</button>
+                <button class="btn-sm btn-dark ml-1 d-inline-block" *ngIf="check(role, user.authority)" disabled>add</button>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            </div>
+          </ng-template>
+
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>

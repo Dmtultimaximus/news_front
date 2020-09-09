@@ -4,6 +4,8 @@ import {AuthService} from '../service/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {LogoutService} from '../service/logout.service';
+import {TransferDataAdminService} from '../service/transfer-data-admin.service';
+import {LoginComponent} from '../auth/login/login.component';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +18,8 @@ export class HeaderComponent implements OnInit {
               private authService: AuthService,
               private logoutService: LogoutService,
               private toastr: ToastrService,
-              private router: Router) {
+              private router: Router,
+              public transferData: TransferDataAdminService) {
   }
 
   ngOnInit(): void {

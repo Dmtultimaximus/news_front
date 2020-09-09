@@ -32,6 +32,8 @@ import {DragDropDirective} from './directive/drag-and-drop.directive';
 import {UpdateTextComponent} from './update-news/update-text/update-text.component';
 import {UpdateImageComponent} from './update-news/update-image/update-image.component';
 import {NewsComponent} from './news/news.component';
+import { AdminComponent } from './admin/admin.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import {NewsComponent} from './news/news.component';
     DragDropDirective,
     UpdateTextComponent,
     UpdateImageComponent,
-    NewsComponent
+    NewsComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import {NewsComponent} from './news/news.component';
     MatSortModule,
     MatInputModule,
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [
     {

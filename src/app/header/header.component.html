@@ -20,6 +20,7 @@
       <a *ngIf="isAuth()"  routerLink="/profile" class="float-right login mr-2">My profile</a>
       <a *ngIf="isAuth()"  routerLink="/add-news" class="float-right login mr-2">Add News</a>
       <a *ngIf="isAuth()" (click)="logOut()"  class="float-right login mr-2">Logout</a>
+      <a *ngIf="isAuth()&&transferData.roleAdmin.getValue()" routerLink="/admin" class="float-right login mr-2">Admin</a>
       <a *ngIf="!isAuth()" routerLink="/sign-up" class="float-right signup mr-2">Sign up</a>
       <a *ngIf="!isAuth()" routerLink="/login" class="float-right login mr-2">Login</a>
     </div>

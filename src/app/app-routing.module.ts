@@ -9,6 +9,7 @@ import {UpdateNewsComponent} from './update-news/update-news.component';
 import {ProfileUserComponent} from './profile-user/profile-user.component';
 import {AddImgNewsComponent} from './add-news/add-img-news/add-img-news.component';
 import {NewsComponent} from './news/news.component';
+import {AdminComponent} from './admin/admin.component';
 
 const routes: Routes = [
   {path: 'sign-up', component: SignupComponent},
@@ -24,7 +25,8 @@ const routes: Routes = [
       {path: ':id', component: AboutNewsComponent},
       {path: ':id/update', component: UpdateNewsComponent},
     ]
-  }
+  },
+  {path: 'admin', component: AdminComponent}
 ];
 
 @NgModule({
